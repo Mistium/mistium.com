@@ -237,8 +237,7 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
   margin: 10px;
-  width: 200px;
-  height: 230px;
+  width: 300px;
   display: inline-block;
   vertical-align: top;
   transition: 0.2s;
@@ -283,7 +282,7 @@ a:active {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 15px; /* Adjusted padding */
   margin: 0 auto; /* Centering horizontally */
-  max-width: 500px;
+  max-width: 800px;
   vertical-align: top;
   align-self: center;
   transition: 0.2s;
