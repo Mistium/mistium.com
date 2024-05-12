@@ -8,7 +8,6 @@ html,body {
   background: linear-gradient(135deg, #000, #57cdac);
 }
 
-
 .nav-container {
   display: flex;
   align-items: center;
@@ -42,7 +41,6 @@ html,body {
   text-align: center;
 }
 
-/* Style for profile cards */
 .profile-card {
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -99,18 +97,22 @@ a:active {
   vertical-align: top;
   transition: 0.2s;
 }
+
 .project-card img {
   width: 100%;
   border-radius: 5px;
   opacity: 1;
   height: auto;
 }
+
 .project-card h3 {
   margin: 15px 0;
 }
+
 .project-card p {
   margin: 15px 0;
 }
+
 .project-card a {
   border-radius: 10px;
   display: inline-block;
@@ -121,6 +123,7 @@ a:active {
   color: #fff;
   text-decoration: none;
 }
+
 .project-card:hover {
   background-color: rgba(0, 0, 0, 1);
   transition: 0.2s;
