@@ -44,31 +44,42 @@ body {
 
 /* Style for profile cards */
 .profile-card {
-border-radius: 15px;
-background-color: rgba(0, 0, 0, 0.7);
-padding: 20px;
-margin: 10px;
-width: 300px;
-display: inline-block;
-vertical-align: top;
-transition: 0.2s;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  display: inline-block;
+  vertical-align: top;
+  transition: 0.2s;
 }
 
 .profile-card:hover {
-background-color: rgba(0, 0, 0, 1);
-transition: 0.2s;
-scale: 1.05;
+  background-color: rgba(0, 0, 0, 1);
+  transition: 0.2s;
+  scale: 1.05;
 }
 
 .profile-card h2 {
-padding: 0px;
-opacity: 1;
-color: #fff;
+  padding: 0px;
+  opacity: 1;
+  color: #fff;
 }
 
 .profile-card p {
-opacity: 1;
-color: #ddd;
+  opacity: 1;
+  color: #ddd;
+}
+
+.profile-image {
+  background-color: rgba(10, 10, 10, 0.7);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: block;
 }
 
 a:focus,
@@ -77,62 +88,41 @@ a:active {
   outline: none;
 }
 
-.projects {
-  padding: 20px;
-  align-items: center;
-  margin: auto;
-  align-content: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 600px);
-  gap: 10px;
-  justify-content: center;
-}
-.profile-image {
-background-color: rgba(10, 10, 10, 0.7);
-padding: 10px;
-margin: 10px;
-border-radius: 10%;
-width: 100px;
-height: 100px;
-margin: 0 auto;
-display: block;
-}
-
 .project-card {
-align-self: center;
-width: 95%;
-border-radius: 15px;
-height: 530px;
-background-color: rgba(0, 0, 0, 0.7);
-padding: 15px; /* Adjusted padding */
-transition: 0.2s;
-
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  margin: 10px;
+  width: 600px;
+  min-height: 500px;
+  display: inline-block;
+  vertical-align: top;
+  transition: 0.2s;
 }
-
 .project-card img {
-width: 100%;
-border-radius: 5px;
-opacity: 1;
-height: auto;
+  width: 100%;
+  border-radius: 5px;
+  opacity: 1;
+  height: auto;
 }
 .project-card h3 {
-margin: 15px 0;
+  margin: 15px 0;
 }
 .project-card p {
-margin: 15px 0;
+  margin: 15px 0;
 }
 .project-card a {
-border-radius: 10px;
-display: inline-block;
-margin: 15px 0;
-width: 300px;
-padding: 10px 15px;
-background-color: #57cdac;
-color: #fff;
-text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 15px 0;
+  width: 300px;
+  padding: 10px 15px;
+  background-color: #57cdac;
+  color: #fff;
+  text-decoration: none;
 }
 .project-card:hover {
-background-color: rgba(0, 0, 0, 1);
-transition: 0.2s;
-scale: 1.005;
+  background-color: rgba(0, 0, 0, 1);
+  transition: 0.2s;
+  scale: 1.005;
 }
