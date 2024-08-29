@@ -9,7 +9,8 @@ body {
   padding: 0;
   transition: background-color 0.3s ease;
   color: #fff;
-  background: linear-gradient(135deg, #000, #57cdac);
+  background: rgb(87,205,172);
+background: linear-gradient(45deg, rgba(87,205,172,1) 0%, rgba(17,17,17,1) 10%, rgba(17,17,17,1) 90%, rgba(87,205,172,1) 100%);
 }
 
 .nav-container {
@@ -47,7 +48,7 @@ body {
 
 .profile-card {
   border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #222;
   padding: 20px;
   margin: 10px;
   width: 300px;
@@ -57,7 +58,7 @@ body {
 }
 
 .profile-card:hover {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #252525;
   transition: 0.2s;
   scale: 1.05;
 }
@@ -74,10 +75,8 @@ body {
 }
 
 .profile-image {
-  background-color: rgba(10, 10, 10, 0.7);
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10%;
+  margin: 20px;
+  border-radius: 10px;
   width: 100px;
   height: 100px;
   margin: 0 auto;
@@ -90,21 +89,26 @@ a:active {
   outline: none;
 }
 
+.projects {
+  text-align: center;
+}
+
 .project-card {
   border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #222;
   padding: 20px;
   margin: 10px;
-  width: 600px;
-  min-height: 500px;
+  max-width: 700px;
+  min-height: 200px;
   display: inline-block;
   vertical-align: top;
   transition: 0.2s;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .project-card img {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   opacity: 1;
   height: auto;
 }
@@ -123,13 +127,19 @@ a:active {
   margin: 15px 0;
   width: 300px;
   padding: 10px 15px;
-  background-color: #57cdac;
-  color: #fff;
+  background-color: #333;
+  color: #ddd;
   text-decoration: none;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.project-card a:hover {
+  background-color: #444;
+  transition: 0.2s;
 }
 
 .project-card:hover {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #252525;
   transition: 0.2s;
-  scale: 1.005;
+  scale: 1.05;
 }
