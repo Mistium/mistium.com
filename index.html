@@ -1,154 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <title>Mistium</title>
-      <meta content="Mistium" property="og:title" />
-      <meta content="Sole developer of originOS" property="og:description" />
-      <meta content="https://mistium.com" property="og:url" />
-      <meta content="https://avatars.githubusercontent.com/u/92952823?v=4" property="og:image" />
-      <meta content="#57cdac" data-react-helmet="true" name="theme-color" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" type="image/x-icon" href="favicon.ico">
-      <link rel="stylesheet" type="text/css" href="styles.css">
-   </head>
-   <body>
-      <div id="topbar"></div>
-      <script>
-         fetch('https://raw.githubusercontent.com/Mistium/Origin-OS/main/topbar.html')
-             .then(response => response.text())
-             .then(html => {
-                 document.getElementById('topbar').innerHTML = html;
-             })
-             .catch(error => console.error('Error fetching topbar HTML:', error));
-      </script>
-      <div class="content">
-         <h1>Hey! I'm Mistium</h1>
-         <!-- Site Logo Card -->
-         <img src="https://avatars.githubusercontent.com/u/92952823?v=4" style="border-radius: 50%;width: 100px;">
-         <!-- Add this code after the profileCards div -->
-         <h2>My Projects</h2>
-         <div class="projects">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mistium</title>
+    <meta content="Mistium" property="og:title" />
+    <meta content="Sole developer of originOS" property="og:description" />
+    <meta content="https://mistium.com" property="og:url" />
+    <meta content="https://avatars.githubusercontent.com/u/92952823?v=4" property="og:image" />
+    <meta content="#57cdac" data-react-helmet="true" name="theme-color" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div id="topbar"></div>
+    <script>
+        fetch('https://raw.githubusercontent.com/Mistium/Origin-OS/main/topbar.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('topbar').innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching topbar HTML:', error));
+    </script>
+    <div class="content">
+        <h1>Hey! I'm Mist</h1>
+        <!-- Site Logo Card -->
+        <img id="tilt" src="https://avatars.githubusercontent.com/u/92952823?v=4" style="border-radius: 50%;width: 150px;">
+        <!-- Add this code after the profileCards div -->
+        <div class="projects">
+            <h2>Projects</h2>
             <!-- Project Card -->
             <div class="project-card">
-                <img src="./images/originOS.png" alt="Project Image">
+                <img src="./images/originOS_logo.png" alt="Project Image">
                 <h3>originOS</h3>
-                <p>originOS is by far my best project ive ever made, with a fully working high level programming language built right in, rendered with 0 costumes. A full desktop simulation, often mistaken for linux distrobutions and unrecognisable as a scratch project.</p>
+                <p>A full desktop simulation, often mistaken for linux distrobutions and unrecognisable as a scratch
+                    project.</p>
                 <a href="https://origin.mistium.com">About Origin</a>
-             </div>
+            </div>
             <div class="project-card">
-                <img src="./images/Rotur.png" alt="Project Image">
+                <img src="./images/Rotur_Logo.png" alt="Project Image">
                 <h3>Rotur</h3>
-                <p>A networking and accounts standard for turbowarp based operating systems, allowing for unparralelled interconnectivity using one account for all systems. Built ontop of originNetworkingv3, it allows any os to gain simple and easy cloud networking and accounts.</p>
-                <a href="https://rotur.dev">Check Out Rotur.dev</a>
+                <p>Built ontop of originNetworkingv3, it allows any turbowarp os to gain simple and easy cloud
+                    networking and accounts.</p>
+                <a href="https://rotur.dev">About Rotur</a>
             </div>
             <div class="project-card">
-               <img src="./images/Extensions.png" alt="Project Image">
-               <h3>Extensions</h3>
-               <p>I make scratch extensions, mostly for originOS and utilities that I really need, but some of these might be useful to you to I put them online for people to use, for free :D (bear in mind that some of these might not work and might have bugs and arent all finished lol) :P</p>
-               <a href="https://extensions.mistium.com">Have A Look</a>
+                <img src="./images/Extensions_logo.png" alt="Project Image">
+                <h3>Extensions</h3>
+                <p>I make scratch extensions, mostly for originOS and utilities that I really need, but some of these
+                    might be useful to you :D</p>
+                <a href="https://extensions.mistium.com">View Extensions</a>
             </div>
-            <div class="project-card">
-                <img src="./images/OASM.png" alt="Project Image">
-                <h3>OASM</h3>
-                <p>OASM is a custom js based assembly language originally written in turbowarp, and rewritten as a scratch extension, it can run thousands of commands in under a milisecond. This language is incredibly basic but can be used to do some cool rendering and stuff :shrug:</p>
-                <a href="https://github.com/Mistium/Origin-OS/wiki/OASM-%E2%80%90-Origin-Assembly">OASM Docs</a>
-             </div>
             <!-- Add more project cards as needed -->
-         </div>
-         <!-- Profile Cards Container -->
-         <div id="profileCards"></div>
-      </div>
-      <script>
-         // JSON object containing profile data
-         var profiles = [{
-                 platform: "GitHub",
-                 description: "I do most of my stuff on here. Check out my repositories.",
-                 imageSrc: "./_site/assets/github.png",
-                 link: "https://github.com/mistium"
-             },
-             {
-                 platform: "Patreon",
-                 description: "Support me to get exclusive benefits and more",
-                 imageSrc: "./_site/assets/patreon.png",
-                 link: "https://www.patreon.com/user?u=51594743"
-             },
-             {
-                 platform: "Discord",
-                 description: "Join my Discord server to chat with me and other people.",
-                 imageSrc: "./_site/assets/discord.png",
-                 link: "https://discord.gg/7DcwkqrZ9S"
-             },
-             {
-                 platform: "Scratch",
-                 description: "Check out my original projects on scratch",
-                 imageSrc: "./_site/assets/scratch.png",
-                 link: "https://scratch.mit.edu/users/m1stium"
-             },
-             {
-                 platform: "YouTube",
-                 description: "I play beatsaber and vr stuff on here. Check it out!",
-                 imageSrc: "./_site/assets/youtube.png",
-                 link: "https://www.youtube.com/@mistium"
-             },
-             {
-                 platform: "Twitter",
-                 description: "Dont post here :sob:",
-                 imageSrc: "./_site/assets/twitter.png",
-                 link: "https://twitter.com/BurningScale"
-             },
-             {
-                 platform: "Instagram",
-                 description: "Barely use instagram anymore :P",
-                 imageSrc: "./_site/assets/instagram.png",
-                 link: "https://www.instagram.com/m1stium"
-             },
-             {
-                 platform: "Twitch",
-                 description: "I dont use this one much either lmao",
-                 imageSrc: "./_site/assets/twitch.svg",
-                 link: "https://www.twitch.tv/m1stium"
-             },
-            
-             // Add more profile objects as needed
-         ];
-         
-         // Function to generate profile cards
-         function generateProfileCards() {
-             var profileCardsContainer = document.getElementById("profileCards");
-         
-             profiles.forEach(function(profile) {
-                 var profileCardLink = document.createElement("a");
-                 profileCardLink.href = profile.link;
-                 profileCardLink.target = "_blank";
-                 profileCardLink.rel = "noopener noreferrer";
-         
-                 var profileCard = document.createElement("div");
-                 profileCard.classList.add("profile-card");
-         
-                 var platformHeading = document.createElement("h2");
-                 platformHeading.textContent = profile.platform;
-         
-                 var descriptionParagraph = document.createElement("p");
-                 descriptionParagraph.textContent = profile.description;
-         
-                 var profileImage = document.createElement("img");
-                 profileImage.src = profile.imageSrc;
-                 profileImage.alt = profile.platform;
-                 profileImage.classList.add("profile-image");
-         
-                 profileCard.appendChild(profileImage);
-                 profileCard.appendChild(platformHeading);
-                 profileCard.appendChild(descriptionParagraph);
-         
-                 profileCardLink.appendChild(profileCard);
-                 profileCardsContainer.appendChild(profileCardLink);
-             });
-         }
-         
-         // Call the function to generate profile cards
-         generateProfileCards();
-      </script>
-   </body>
+        </div>
+        <h2>Profiles</h2>
+        <!-- Profile Cards Container -->
+        <div id="profileCards"></div>
+    </div>
+    <script>
+        // JSON object containing profile data
+        var profiles = [{
+            platform: "GitHub",
+            username: "mistium",
+            imageSrc: "./_site/assets/github.png",
+            link: "https://github.com/mistium"
+        },
+        {
+            platform: "Patreon",
+            username: "originStudios",
+            imageSrc: "./_site/assets/patreon.png",
+            link: "https://www.patreon.com/user?u=51594743"
+        },
+        {
+            platform: "Discord",
+            username: "mistium",
+            imageSrc: "./_site/assets/discord.png",
+            link: "https://discord.com/users/603952506330021898"
+        },
+        {
+            platform: "Scratch",
+            username: "m1stium",
+            imageSrc: "./_site/assets/scratch.png",
+            link: "https://scratch.mit.edu/users/m1stium"
+        },
+        {
+            platform: "YouTube",
+            username: "mistium",
+            imageSrc: "./_site/assets/youtube.png",
+            link: "https://www.youtube.com/@mistium"
+        },
+        {
+            platform: "Twitter",
+            username: "BurningScale",
+            imageSrc: "./_site/assets/twitter.png",
+            link: "https://twitter.com/BurningScale"
+        },
+        {
+            platform: "Instagram",
+            username: "m1stium",
+            imageSrc: "./_site/assets/instagram.png",
+            link: "https://www.instagram.com/m1stium"
+        },
+        {
+            platform: "Twitch",
+            username: "m1stium",
+            imageSrc: "./_site/assets/twitch.svg",
+            link: "https://www.twitch.tv/m1stium"
+        },
+            // Add more profile objects as needed
+        ];
+
+        // Function to generate profile cards
+        function generateProfileCards() {
+            var profileCardsContainer = document.getElementById("profileCards");
+
+            profiles.forEach(function (profile) {
+                var profileCardLink = document.createElement("a");
+                profileCardLink.href = profile.link;
+                profileCardLink.target = "_blank";
+                profileCardLink.rel = "noopener noreferrer";
+
+                var profileCard = document.createElement("div");
+                profileCard.classList.add("profile-card");
+
+                var profileImage = document.createElement("img");
+                profileImage.src = profile.imageSrc;
+                profileImage.alt = profile.platform;
+                profileImage.classList.add("profile-image");
+
+                var usernameSpan = document.createElement("h2");
+                usernameSpan.textContent = profile.username;
+                usernameSpan.classList.add("profile-username");
+
+                profileCard.appendChild(profileImage);
+                profileCard.appendChild(usernameSpan);
+
+                profileCardLink.appendChild(profileCard);
+                profileCardsContainer.appendChild(profileCardLink);
+            });
+        }
+
+        // Call the function to generate profile cards
+        generateProfileCards();
+    </script>
+    <script>
+        let el = document.getElementById('tilt');
+        const height = el.clientHeight;
+        const width = el.clientWidth;
+
+        // Add will-change to optimize rendering
+        el.style.willChange = 'transform';
+
+        el.addEventListener('mousemove', handleMove);
+
+        function handleMove(e) {
+            const rect = el.getBoundingClientRect();
+            const xVal = e.clientX - rect.left; // Mouse position relative to element
+            const yVal = e.clientY - rect.top; // Mouse position relative to element
+
+            const yRotation = 20 * ((xVal - width / 2) / width);
+            const xRotation = -20 * ((yVal - height / 2) / height);
+
+            const string = `perspective(500px) scale(1.1) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+
+            // Use requestAnimationFrame for smoother animations
+            requestAnimationFrame(() => {
+                el.style.transform = string;
+            });
+        }
+
+        el.addEventListener('mouseout', function () {
+            requestAnimationFrame(() => {
+                el.style.transform = 'perspective(500px) scale(1) rotateX(0) rotateY(0)';
+            });
+        });
+
+    </script>
+</body>
 </html>
