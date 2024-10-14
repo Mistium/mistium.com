@@ -125,6 +125,7 @@ a:active {
   padding: 15px 15px;
   color: #ddd;
   text-decoration: none;
+  text-align: center;
 }
 
 .project-card a:hover {
