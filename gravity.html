@@ -1,0 +1,87 @@
+<DOCTYPE html>
+
+    <head>
+        <title>Grav Sim</title>
+    </head>
+
+    <div class="items"></div>
+
+    <script>
+      const items = document.querySelector('.items');
+      let gravity = 1;
+      let falloff = 0.98;
+      let bodies = [];
+
+      function createBody(x, y, vx, vy, mass) {
+        const body = document.createElement('div');
+        body.mass = mass ?? Math.random(1);
+        body.style.position = 'absolute';
+        body.style.left = x + 'px';
+        body.style.top = y + 'px';
+        body.style.width = (body.mass * 10) + 'px';
+        body.style.height = (body.mass * 10) +'px';
+        body.style.background = 'red';
+        body.style.borderRadius = '50%';
+        body.style.transform = 'translateX(-50%) translateY(-50%)';
+        body.vx = vx;
+        body.vy = vy;
+        body.offsetLeft = x;
+        body.offsetTop = y;
+        body.addEventListener('click', function() {
+            console.log(body, body.vx, body.vy, body.offsetLeft, body.offsetTop);
+        })
+        items.appendChild(body);
+        return body;
+      }
+
+      function update() {
+        // update all positions based on other bodies
+        // bounce the items off the walls
+        for (let i = 0; i < bodies.length; i++) {
+          const body = bodies[i];
+          const x = body.offsetLeft || 0;
+          const y = body.offsetTop || 0;
+          let vx = body.vx || 0;
+          let vy = body.vy || 0;
+          let force = 0;
+          for (let j = 0; j < bodies.length; j++) {
+            if (i === j) continue;
+            const other = bodies[j];
+            const dx = x - other.offsetLeft;
+            const dy = y - other.offsetTop;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            force = gravity * other.mass / (distance * distance);
+            if (distance < (other.mass + body.mass) * 10) {
+                force = -force
+            }
+            vx -= dx * force;
+            vy -= dy * force;
+          }
+          vx = vx || body.vx
+          vy = vy || body.vy
+          
+          body.vx = vx;
+          body.vy = vy;
+          body.style.left = x + vx * falloff + 'px';
+          body.style.top = y + vy * falloff + 'px';
+
+        }
+      }
+
+      //after loaded
+      window.onload = function() {
+        for (let i = 0; i < 100; i++) {
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          const vx = Math.random() * 2 - 1;
+          const vy = Math.random() * 2 - 1;
+          const body = createBody(x, y, vx, vy);
+          bodies.push(body);
+        }
+
+        //createBody(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 40);
+
+        setInterval(update, 1000 / 60);
+
+      }
+    </script>
