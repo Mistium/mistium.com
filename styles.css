@@ -1,27 +1,113 @@
-html {
-  min-height: max(100%, 100vh);
-  background: #111115;
+:root {
+  --bg-primary: #e8e4f2;
+  --bg-secondary: #d8d0e8;
+  --bg-card: rgba(240, 235, 250, 0.8);
+  --bg-overlay: rgba(190, 180, 220, 0.4);
+  --bg-overlay-2: rgba(210, 200, 240, 0.2);
+  --bg-nav: rgba(220, 210, 235, 0.7);
+  --accent-primary: #9d81c7;
+  --accent-primary-rgb: 157, 129, 199;
+  --accent-secondary: #7a6ca8;
+  --accent-secondary-rgb: 122, 108, 168;
+  --text-primary: #4a3b6b;
+  --text-secondary: #5d4d7e;
+  --border-color: rgba(180, 160, 220, 0.2);
+  --border-hover: rgba(180, 160, 220, 0.3);
+  --shadow-color: rgba(150, 130, 180, 0.15);
+  --shadow-hover: rgba(150, 130, 180, 0.25);
+  --transition-speed: 0.5s;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(15, 15, 15, 0.8);
+  --bg-overlay: rgba(20, 20, 20, 0.4);
+  --bg-overlay-2: rgba(25, 25, 25, 0.2);
+  --bg-nav: rgba(15, 15, 15, 0.7);
+  --accent-primary: #9d81c7;
+  --accent-primary-rgb: 157, 129, 199;
+  --accent-secondary: #7a6ca8;
+  --accent-secondary-rgb: 122, 108, 168;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: rgba(180, 160, 220, 0.2);
+  --border-hover: rgba(180, 160, 220, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+}
+
+html, body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  transition: background var(--transition-speed) ease;
+  overscroll-behavior: none;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  padding: 0;
-  transition: background-color 0.3s ease;
-  color: #fff;
+  color: var(--text-primary);
   max-width: 1600px;
-  margin: auto;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background: transparent; /* Make body background transparent to show html background */
+}
+
+/* Animated background gradient */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Use viewport height instead of percentage */
+  background: linear-gradient(125deg, var(--bg-overlay) 0%, var(--bg-overlay-2) 100%);
+  z-index: -1;
+  animation: gradientAnimation 15s ease infinite;
+  background-size: 400% 400%;
+  transition: background var(--transition-speed) ease;
+  pointer-events: none; /* Ensure it doesn't interfere with interactions */
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle floating animation for content */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 15px 25px;
+  backdrop-filter: blur(10px);
+  background: var(--bg-nav);
+  border-radius: 15px;
+  margin: 20px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
 }
 
 .nav-menu {
@@ -37,37 +123,121 @@ body {
 
 .nav-menu li a {
   text-decoration: none;
-  color: inherit;
+  color: var(--text-primary);
+  position: relative;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.nav-menu li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width 0.3s ease;
+}
+
+.nav-menu li a:hover::after {
+  width: 100%;
 }
 
 .content {
-  padding: 0px;
+  padding: 30px;
   text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  padding-bottom: 60px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .profile-card {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  border-radius: 40px;
-  height: 40px;
-  padding: 20px;
-  margin: 10px;
-  width: 300px;
-  display: inline-flex;
+  background: var(--bg-card);
+  box-shadow: 0 8px 32px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  height: 50px;
+  padding: 25px;
+  margin: 0;
+  width: 100%;
+  display: flex;
   align-items: center;
-  vertical-align: top;
-  transition: 0.2s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
 }
 
-.profile-card:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  transition: 0.2s;
-  scale: 1.05;
+.profile-card::before,
+.profile-card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+  pointer-events: none;
+}
+
+.profile-card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.1),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.profile-card::after {  
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.15),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.profile-card:hover::before {
+  opacity: 1;
+}
+
+#profileCards:hover > .profile-card::after {
+  opacity: 1;
 }
 
 .profile-card h2 {
-  float: right;
-  color: #fff;
+  color: var(--text-primary);
   padding: 10px;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 20px;
+  font-size: 1.2rem;
+}
+
+.profile-card h2::after {
+  display: none !important;
 }
 
 .profile-image {
@@ -75,7 +245,13 @@ body {
   width: 50px;
   height: 50px;
   display: block;
-  float: left;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.profile-card:hover .profile-image {
+  transform: rotate(5deg) scale(1.1);
 }
 
 a:focus,
@@ -86,55 +262,457 @@ a:active {
 
 .projects {
   text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.projects h2 {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.project-cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 100px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+
+.project-cards-container:hover > .project-card::after {
+  opacity: 1;
 }
 
 .project-card {
-  border-radius: 15px;
-  padding: 20px;
-  margin: 10px;
-  max-width: 400px;
-  min-height: 200px;
-  display: inline-block;
-  vertical-align: top;
-  transition: 0.2s;
-  text-align: left; /* Align text to the left */
+  background-color: var(--bg-card);
+  border-radius: 20px;
+  padding: 30px;
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: left;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  cursor: pointer;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  border: 1px solid var(--border-color);
+}
+
+.project-card::before,
+.project-card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+  pointer-events: none;
+}
+
+.project-card::before {
+  background: radial-gradient(
+    1500px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.1),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.project-card::after {  
+  background: radial-gradient(
+    1500px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.15),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card > .card-content {
+  background-color: transparent;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 1px;
+  padding: 10px;
+  position: relative;
+  z-index: 2;
 }
 
 .project-card img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 15px;
   opacity: 1;
   height: auto;
+  transition: transform 0.5s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  object-fit: cover;
+}
+
+.project-card:hover img {
+  transform: scale(1.03);
 }
 
 .project-card h3 {
-  margin: 15px 0;
+  margin: 25px 0 15px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+  font-size: 1.6rem;
 }
 
 .project-card p {
-  color: #aac;
+  color: var(--text-secondary);
   margin: 15px 0;
   left: 0px;
+  line-height: 1.7;
+  flex-grow: 1;
+  font-size: 1.05rem;
 }
 
 .project-card a {
-  border-radius: 10px;
-  display: inline-block;
-  margin: 0 auto;
+  background: linear-gradient(90deg, rgba(157, 129, 199, 0.15), rgba(122, 108, 168, 0.15));
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  display: block;
+  margin-top: 25px;
   width: calc(100% - 30px);
-  padding: 15px 15px;
-  color: #ddd;
+  padding: 15px;
+  color: var(--text-primary);
   text-decoration: none;
   text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  align-self: center;
+  font-weight: 500;
+}
+
+.project-card a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: all 0.6s ease;
 }
 
 .project-card a:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  transition: 0.2s;
+  background: linear-gradient(90deg, rgba(157, 129, 199, 0.25), rgba(122, 108, 168, 0.25));
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transform: translateY(-3px);
+}
+
+.project-card a:hover::before {
+  left: 100%;
 }
 
 .project-card:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  transition: 0.2s;
-  scale: 1.01;
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-hover);
+  border: 1px solid var(--border-hover);
+  z-index: 1;
+}
+
+.project-card:hover::before {
+  left: 100%;
+  opacity: 1;
+}
+
+.about {
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 35px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+.about::before,
+.about::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+  pointer-events: none;
+}
+
+.about::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.1),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.about::after {  
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(var(--accent-primary-rgb), 0.15),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.about:hover::before {
+  opacity: 1;
+}
+
+.about:hover::after {
+  opacity: 1;
+}
+
+.about > .card-content {
+  background-color: transparent;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 1px;
+  padding: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.about h2 {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+}
+
+.about p {
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+h1, h2 {
+  position: relative;
+  display: inline-block;
+  margin: 30px 0;
+  width: auto;
+  color: var(--text-primary);
+}
+
+h1::after, h2::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  bottom: -10px;
+  left: 25%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 3px;
+}
+
+#tilt {
+  border: 3px solid var(--border-color);
+  box-shadow: 0 15px 35px var(--shadow-color);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: float 6s ease-in-out infinite;
+  margin: 30px auto;
+  display: block;
+}
+
+#tilt:hover {
+  border-color: var(--border-hover);
+}
+
+#profileCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 100px;
+  row-gap: 50px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+
+/* Make sure headings are centered and full width */
+.content > h1, 
+.content > h2,
+.projects > h2 {
+  width: 100%;
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Make the grid responsive */
+@media (max-width: 1200px) {
+  .project-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #profileCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .project-cards-container {
+    grid-template-columns: 1fr;
+  }
+  #profileCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px var(--shadow-hover);
+  border-color: var(--accent-primary);
+}
+
+.theme-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* Windows-like highlight effect */
+.card-highlight {
+  display: none;
+}
+
+/* Fix for layout shifts */
+.project-cards-container, #profileCards {
+  padding-bottom: 20px; /* Add extra space at the bottom to account for hover transformations */
+}
+
+/* Ensure cards maintain their space in the layout even when transformed */
+.project-card, .profile-card, .about {
+  transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Fix for profile cards to maintain their structure */
+.profile-card > .card-content {
+  background-color: transparent;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure profile images and text stay in place */
+.profile-card .profile-image {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+}
+
+.profile-card h2 {
+  position: relative;
+  z-index: 3;
+}
+
+/* Fix for project card links */
+.project-card a {
+  position: relative;
+  z-index: 3;
+}
+
+/* Ensure the hover simulation doesn't affect layout */
+.hover-simulation {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  z-index: -999 !important;
+  opacity: 0 !important;
+}
+
+/* Ensure the card content doesn't shift */
+.project-card > .card-content > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Fix for the about section */
+.about > .card-content > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Add a proper footer area to prevent scrolling past content */
+.footer-spacer {
+  height: 50px;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Ensure the page doesn't show white when scrolled */
+#root, #__next {
+  background: inherit;
 }
