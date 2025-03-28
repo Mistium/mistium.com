@@ -1226,6 +1226,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       auth = urlParams.get('token') ?? getCookie('auth');
       if (auth) {
+        window.history.replaceState({}, document.title, window.location.pathname);
         setCookie('auth', auth, 7);
       }
       if (auth === "") {
