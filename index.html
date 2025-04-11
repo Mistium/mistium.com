@@ -30,44 +30,170 @@
             .catch(error => console.error('Error fetching topbar HTML:', error));
     </script>
     <div class="content">
-        <h1 class="animate__animated animate__fadeInDown">Hey! I'm Mist</h1>
+        <h1 class="animate__animated animate__fadeInDown">Hey! I'm <span>Mist</span></h1>
         <!-- Site Logo Card -->
         <img id="tilt" src="https://avatars.rotur.dev/mist" width="150px" height="150px" alt="Profile Picture" style="border-radius: 50%;width: 150px;">
 
         <div class="about animate__animated animate__fadeIn animate__delay-1s" id="about">
-            <h2>About Me</h2>
-            <p>Developer of originOS, osl, and member of roturTW</p>
+            <div class="card-content">
+                <h2>About Me</h2>
+                <p>Developer of originOS, osl, and member of roturTW</p>
+                <div class="stats-container" id="github-stats">
+                    <div class="stat-item">
+                        <div class="stat-count" data-count="58" id="repos-count">58</div>
+                        <div class="stat-label">Repositories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-count" data-count="35" id="followers-count">35</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-count" data-count="4" id="joined-years">4</div>
+                        <div class="stat-label">Years on GitHub</div>
+                    </div>
+                </div>
+                <div class="github-badge">
+                    <span>GitHub Profile:</span>
+                    <a href="https://github.com/Mistium" target="_blank">@Mistium</a>
+                </div>
+            </div>
         </div>
-        <!-- Add this code after the profileCards div -->
+        
+        <!-- Projects Section -->
         <div class="projects" id="projects">
             <h2 class="animate__animated animate__fadeIn animate__delay-1s">Projects</h2>
+            
             <!-- Project Cards Container -->
             <div class="project-cards-container">
                 <!-- Project Card -->
-                <div class="project-card animate__animated animate__fadeInUp animate__delay-1s">
-                    <img src="./images/originOS_logo.png" alt="Project Image" width="100%" height="auto">
-                    <h3>originOS</h3>
-                    <p>A full desktop simulation, often mistaken for linux distrobutions and unrecognisable as a scratch
-                        project.</p>
-                    <a href="https://origin.mistium.com">About Origin</a>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="./images/originOS_logo.png" alt="Project Image" width="100%" height="auto">
+                        <h3>originOS</h3>
+                        <p>A full desktop simulation, often mistaken for linux distrobutions and unrecognisable as a scratch
+                            project.</p>
+                        <a href="https://origin.mistium.com">About Origin</a>
+                    </div>
                 </div>
-                <div class="project-card animate__animated animate__fadeInUp animate__delay-1s">
-                    <img src="./images/Rotur_Logo.png" alt="Project Image" width="100%" height="auto">
-                    <h3>Rotur</h3>
-                    <p>Built ontop of originNetworkingv3, it allows any turbowarp os to gain simple and easy cloud
-                        networking and accounts.</p>
-                    <a href="https://rotur.dev">About Rotur</a>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="./images/Rotur_Logo.png" alt="Project Image" width="100%" height="auto">
+                        <h3>Rotur</h3>
+                        <p>Built ontop of originNetworkingv3, it allows any turbowarp os to gain simple and easy cloud
+                            networking and accounts.</p>
+                        <a href="https://rotur.dev">About Rotur</a>
+                    </div>
                 </div>
-                <div class="project-card animate__animated animate__fadeInUp animate__delay-1s">
-                    <img src="./images/Extensions_logo.png" alt="Project Image" width="100%" height="auto">
-                    <h3>Extensions</h3>
-                    <p>I make scratch extensions, mostly for originOS and utilities that I really need, but some of these
-                        might be useful to you :D</p>
-                    <a href="https://extensions.mistium.com">View Extensions</a>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="./images/Rush.png" alt="Project Image" width="100%" height="auto">
+                        <h3>RSH</h3>
+                        <p>A flexible and simple spec for terminals in rotur based operating systems</p>
+                        <a href="https://github.com/RoturTW/.rsh">Github</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="./images/Claw.png" alt="Project Image" width="100%" height="auto">
+                        <h3>Claw</h3>
+                        <p>An open and easy to use social media platform with no algorithm</p>
+                        <a href="https://github.com/RoturTW/.rsh">Github</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="./images/Extensions_logo.png" alt="Project Image" width="100%" height="auto">
+                        <h3>Extensions</h3>
+                        <p>I make scratch extensions, mostly for originOS and utilities that I really need, but some of these
+                            might be useful to you :D</p>
+                        <a href="https://extensions.mistium.com">View Extensions</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-content">
+                        <img src="https://avatars.githubusercontent.com/u/175630084" alt="Project Image" width="100%" height="auto">
+                        <h3>MistWarp</h3>
+                        <p>A mod of TurboWarp made by me to change some of the styling, add new themes and mess around</p>
+                        <a href="https://warp.mistium.com">Use MistWarp</a>
+                    </div>
                 </div>
             </div>
-            <!-- Add more project cards as needed -->
         </div>
+
+        <!-- Side Projects Section -->
+        <div class="side-projects" id="side-projects">
+            <h2 class="animate__animated animate__fadeIn">Side Projects</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">These are some of my side projects that I
+                have worked on. They may not be as polished or complete as my main projects, but they are still worth
+                checking out!</p>
+            <div class="side-projects-container">
+                <!-- Side Project Card -->
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>ICN</h3>
+                        <p>A vector icon rendering language created for originOS</p>
+                        <a href="https://icn.rotur.dev">Docs</a>
+                    </div>
+                </div>
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>RDF</h3>
+                        <p>Rotur Data Format is a type restricted data storage format. Imagine if pkl and osl formatting had a child - with optional typing and constraints built in while allowing simple JS dot notation interaction.</p>
+                        <a href="https://github.com/RoturTW/.rdf" target="_blank">View On GitHub</a>
+                    </div>
+                </div>
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>RTR</h3>
+                        <p>An easy to use and extensible Turing complete programming language that runs in the browser. Designed for web applications in the Rotur ecosystem.</p>
+                        <a href="https://github.com/RoturTW/.rtr" target="_blank">View On GitHub</a>
+                    </div>
+                </div>
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>roturLink</h3>
+                        <p>A simple Python program that streams computer information to the browser and provides access to stuff like a local CORS proxy for Rotur operating systems.</p>
+                        <a href="https://github.com/RoturTW/roturLink" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>mistysIDBwrapper</h3>
+                        <p>A simple and easy to use IndexedDB wrapper written in JavaScript that lets you interact with browser databases using familiar object syntax.</p>
+                        <div class="code-preview">
+                            <pre><code>let crazy = new miDB("MY DATABASE")
+
+// use a seperate object store in the database
+crazy.useStorage("customers")
+
+let name = "mist"
+crazy[name] = "hey its misty user data"
+console.log(await crazy[name])</code></pre>
+                        </div>
+                        <a href="https://github.com/Mistium/mistysIDBwrapper" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="side-project-card">
+                    <div class="card-content">
+                        <h3>mist.js</h3>
+                        <p>A small global object of JavaScript utilities that I tend to need frequently in my projects. A collection of time-saving helpers and commonly used functions.</p>
+                        <div class="code-preview">
+                            <pre><code>// easy object utilities
+
+let obj = {a: 1, b: 2, c: 3}
+let obj2 = {a: 1, b: 2, c: 3}
+
+console.log(mist.isEqual(obj, obj2)) // true
+console.log(mist.isEqual(obj, {a: 1, b: 2})) // false
+
+console.log(mist.pick(obj, ["a", "b"])) // {a: 1, b: 2}</code></pre>
+                        </div>
+                        <a href="https://github.com/Mistium/mist.js" target="_blank">View On GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <h2 class="animate__animated animate__fadeIn animate__delay-2s" id="profiles">Profiles</h2>
         <!-- Profile Cards Container -->
         <div id="profileCards"></div>
@@ -204,12 +330,12 @@
                 el.style.transform = 'perspective(500px) scale(1) rotateX(0) rotateY(0)';
             });
         });
-
     </script>
     <script src="particles.js"></script>
     <script src="scroll-animations.js"></script>
     <script src="theme-toggle.js"></script>
     <script src="card-effects.js"></script>
     <script src="scroll-fix.js"></script>
+    <script src="dynamic-elements.js"></script>
 </body>
 </html>
