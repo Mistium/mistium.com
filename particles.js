@@ -16,26 +16,26 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Particle settings
-    const particleCount = 60;
+    // Particle settings - increased count from 60 to 120
+    const particleCount = 120;
     const particles = [];
     
-    // Function to get colors based on current theme
+    // Function to get colors based on current theme - increased opacity values
     function getThemeColors() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         if (isDark) {
             return [
-                'rgba(157, 129, 199, 0.3)', // Muted lilac
-                'rgba(122, 108, 168, 0.25)', // Muted purple
-                'rgba(180, 160, 220, 0.35)', // Light lavender
-                'rgba(100, 80, 140, 0.2)'  // Darker purple
+                'rgba(157, 129, 199, 0.6)', // Muted lilac - increased opacity
+                'rgba(122, 108, 168, 0.55)', // Muted purple - increased opacity
+                'rgba(180, 160, 220, 0.65)', // Light lavender - increased opacity
+                'rgba(100, 80, 140, 0.5)'  // Darker purple - increased opacity
             ];
         } else {
             return [
-                'rgba(157, 129, 199, 0.4)', // Muted lilac
-                'rgba(122, 108, 168, 0.3)', // Muted purple
-                'rgba(190, 180, 220, 0.5)', // Light lavender
-                'rgba(210, 200, 240, 0.3)'  // Very light lilac
+                'rgba(157, 129, 199, 0.7)', // Muted lilac - increased opacity
+                'rgba(122, 108, 168, 0.6)', // Muted purple - increased opacity
+                'rgba(190, 180, 220, 0.8)', // Light lavender - increased opacity
+                'rgba(210, 200, 240, 0.6)'  // Very light lilac - increased opacity
             ];
         }
     }
@@ -46,14 +46,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const colors = getThemeColors();
         
         for (let i = 0; i < particleCount; i++) {
+            // Create different types of particles for visual variety
+            const isLargeParticle = Math.random() > 0.7; // 30% chance of being a large particle
+            
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 3 + 1,
+                // Increased size range from (1-4) to (2-8)
+                radius: isLargeParticle ? Math.random() * 6 + 4 : Math.random() * 3 + 2,
                 color: colors[Math.floor(Math.random() * colors.length)],
-                speedX: Math.random() * 0.4 - 0.2,
-                speedY: Math.random() * 0.4 - 0.2,
-                opacity: Math.random() * 0.4 + 0.2
+                // Increased movement speed from (-0.2 to 0.2) to (-0.5 to 0.5)
+                speedX: Math.random() * 1.0 - 0.5,
+                speedY: Math.random() * 1.0 - 0.5,
+                // Increased opacity from (0.2-0.6) to (0.4-0.9)
+                opacity: Math.random() * 0.5 + 0.4,
+                // Add pulse effect
+                pulse: Math.random() * 0.04 + 0.01,
+                pulseDirection: 1,
+                maxRadius: isLargeParticle ? Math.random() * 6 + 4 : Math.random() * 3 + 2
             });
         }
     }
@@ -76,6 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (particle.x > canvas.width) particle.x = 0;
             if (particle.y < 0) particle.y = canvas.height;
             if (particle.y > canvas.height) particle.y = 0;
+            
+            // Add pulsing effect to make particles more dynamic
+            if (particle.radius >= particle.maxRadius) {
+                particle.pulseDirection = -1;
+            } else if (particle.radius <= particle.maxRadius * 0.7) {
+                particle.pulseDirection = 1;
+            }
+            
+            particle.radius += particle.pulse * particle.pulseDirection;
 
             // Draw particle
             ctx.beginPath();
@@ -84,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.globalAlpha = particle.opacity;
             ctx.fill();
             
-            // Add subtle glow effect
-            ctx.shadowBlur = 10;
+            // Enhanced glow effect - increased blur value from 10 to 15
+            ctx.shadowBlur = 15;
             ctx.shadowColor = particle.color;
         });
     }
@@ -110,4 +129,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start animation
     animate();
-}); 
+});

@@ -28,13 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.transform = `translateY(${yPos}px)`;
         });
 
-        // Add subtle rotation to project cards on scroll
+        // Removed card rotation effect
         projectCards.forEach(card => {
             if (isInViewport(card)) {
-                const scrollPosition = window.scrollY;
-                const rotationValue = Math.sin(scrollPosition / 1000) * 1.5; // Reduced rotation
-                const scaleValue = 1 + Math.sin(scrollPosition / 1500) * 0.01; // Reduced scale effect
-                card.style.transform = `translateY(-5px) rotate(${rotationValue}deg) scale(${scaleValue})`;
+                // Apply only the translateY effect without rotation
+                card.style.transform = `translateY(-5px)`;
             }
         });
         
@@ -70,4 +68,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial call to set positions
     handleScrollAnimations();
-}); 
+});
