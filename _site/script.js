@@ -1,16 +1,17 @@
-onload = () => {changeTab(1)};
-
+onload = () => {
+  changeTab(1);
+};
 
 function changeTab(tabIndex) {
-  const tabs = document.querySelectorAll('.tab');
-  const underline = document.querySelector('.underline');
-  const tabContents = document.querySelectorAll('.tab-content');
+  const tabs = document.querySelectorAll(".tab");
+  const underline = document.querySelector(".underline");
+  const tabContents = document.querySelectorAll(".tab-content");
 
   // Hide all tab contents
-  tabContents.forEach(content => content.classList.remove('active'));
+  tabContents.forEach((content) => content.classList.remove("active"));
 
   // Show the selected tab content
-  document.getElementById(`tabContent${tabIndex}`).classList.add('active');
+  document.getElementById(`tabContent${tabIndex}`).classList.add("active");
 
   // Move the underline to the selected tab
   const selectedTab = tabs[tabIndex - 1];

@@ -1,59 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<!-- loll -->
-<head>
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #000;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: #fff;
-      border-radius: 50%;
-      animation: fade 5s infinite;
-    }
-
-    @keyframes fade {
-      0% {
-        opacity: 0;
+  <!-- loll -->
+  <head>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
       }
 
-      50% {
-        opacity: 1;
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: fade 5s infinite;
       }
 
-      100% {
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
 
-<body>
-  <div class="search-bar">
-  </div>
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="search-bar"></div>
     <script>
       function createStar() {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = Math.random() * 5 + 1 + 's';
-        star.style.animationDelay = Math.random() * 2 + 's';
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.top = Math.random() * 100 + "vh";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.animationDuration = Math.random() * 5 + 1 + "s";
+        star.style.animationDelay = Math.random() * 2 + "s";
         document.body.appendChild(star);
       }
 
-      setInterval(function() {
-        const stars = document.querySelectorAll('.star');
-        stars.forEach(function(star) {
-          setTimeout(function() {
+      setInterval(function () {
+        const stars = document.querySelectorAll(".star");
+        stars.forEach(function (star) {
+          setTimeout(function () {
             star.remove();
           }, 5000);
         });
@@ -61,7 +60,5 @@
 
       setInterval(createStar, 200);
     </script>
-    </script>
-</body>
-
+  </body>
 </html>

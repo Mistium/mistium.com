@@ -1,148 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grav Sim</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Remove scrollbars */
-            height: 100%;
-            width: 100%;
-            background-color: #000;
-        }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Remove scrollbars */
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+      }
 
-        .items {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+      .items {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="items"></div>
 
-<div class="items"></div>
-
-<script>
-    Number.prototype.clamp = function(min, max) {
+    <script>
+      Number.prototype.clamp = function (min, max) {
         return Math.min(Math.max(this, min), max);
-    };
+      };
 
-    const items = document.querySelector('.items');
-    let gravity = 0.1;
-    let friction = 0.97;
-    let bodies = [];
-    
-    // Camera variables
-    let cam = { x: 0, y: 0, scale: 1 };  // Added scale
-    let isDragging = false;
-    let lastX = 0;
-    let lastY = 0;
+      const items = document.querySelector(".items");
+      let gravity = 0.1;
+      let friction = 0.97;
+      let bodies = [];
 
-    function createBody(x, y, vx, vy, mass) {
-        const body = document.createElement('div');
+      // Camera variables
+      let cam = { x: 0, y: 0, scale: 1 }; // Added scale
+      let isDragging = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      function createBody(x, y, vx, vy, mass) {
+        const body = document.createElement("div");
         body.mass = mass ?? Math.random();
-        body.style.position = 'absolute';
-        body.style.left = x + 'px';
-        body.style.top = y + 'px';
-        body.style.width = (body.mass * 10) + 'px';
-        body.style.height = (body.mass * 10) +'px';
-        body.style.background = 'red';
-        body.style.borderRadius = '50%';
-        body.style.transform = 'translateX(-50%) translateY(-50%)';
+        body.style.position = "absolute";
+        body.style.left = x + "px";
+        body.style.top = y + "px";
+        body.style.width = body.mass * 10 + "px";
+        body.style.height = body.mass * 10 + "px";
+        body.style.background = "red";
+        body.style.borderRadius = "50%";
+        body.style.transform = "translateX(-50%) translateY(-50%)";
         body.vx = vx;
         body.vy = vy;
         body.x = x;
         body.y = y;
         body.offsetLeft = x;
         body.offsetTop = y;
-        body.addEventListener('click', function() {
-            console.log(body, body.vx, body.vy, body.offsetLeft, body.offsetTop);
+        body.addEventListener("click", function () {
+          console.log(body, body.vx, body.vy, body.offsetLeft, body.offsetTop);
         });
         items.appendChild(body);
         return body;
-    }
+      }
 
-    function update() {
+      function update() {
         // update all positions based on other bodies
         for (let i = 0; i < bodies.length; i++) {
-            const body = bodies[i];
-            const x = body.x || 0;
-            const y = body.y || 0;
-            let vx = body.vx || 0;
-            let vy = body.vy || 0;
-            let force = 0;
-            for (let j = 0; j < bodies.length; j++) {
-                if (i === j) continue;
-                const other = bodies[j];
-                const dx = x - other.x;
-                const dy = y - other.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                force = (gravity * other.mass) / (distance * distance);
-                vx -= dx * force;
-                vy -= dy * force;
-            }
+          const body = bodies[i];
+          const x = body.x || 0;
+          const y = body.y || 0;
+          let vx = body.vx || 0;
+          let vy = body.vy || 0;
+          let force = 0;
+          for (let j = 0; j < bodies.length; j++) {
+            if (i === j) continue;
+            const other = bodies[j];
+            const dx = x - other.x;
+            const dy = y - other.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            force = (gravity * other.mass) / (distance * distance);
+            vx -= dx * force;
+            vy -= dy * force;
+          }
 
-            vx = vx || body.vx;
-            vy = vy || body.vy;
+          vx = vx || body.vx;
+          vy = vy || body.vy;
 
-            body.x += vx + Math.random() - 0.5;
-            body.y += vy + Math.random() - 0.5;
-            body.vx = vx * friction;
-            body.vy = vy * friction;
+          body.x += vx + Math.random() - 0.5;
+          body.y += vy + Math.random() - 0.5;
+          body.vx = vx * friction;
+          body.vy = vy * friction;
 
-            // Scale the body position based on the camera scale
-            body.style.left = cam.x + body.x * cam.scale + 'px';
-            body.style.top = cam.y + body.y * cam.scale + 'px';
-            body.style.width = body.mass * 10 * cam.scale + 'px';
-            body.style.height = body.mass * 10 * cam.scale + 'px';
+          // Scale the body position based on the camera scale
+          body.style.left = cam.x + body.x * cam.scale + "px";
+          body.style.top = cam.y + body.y * cam.scale + "px";
+          body.style.width = body.mass * 10 * cam.scale + "px";
+          body.style.height = body.mass * 10 * cam.scale + "px";
         }
-    }
+      }
 
-    // Add mouse event listeners for camera movement
-    window.onload = function() {
-        window.addEventListener('mousedown', (e) => {
-            isDragging = true;
+      // Add mouse event listeners for camera movement
+      window.onload = function () {
+        window.addEventListener("mousedown", (e) => {
+          isDragging = true;
+          lastX = e.clientX;
+          lastY = e.clientY;
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (isDragging) {
+            let dx = e.clientX - lastX;
+            let dy = e.clientY - lastY;
+            cam.x += dx;
+            cam.y += dy;
             lastX = e.clientX;
             lastY = e.clientY;
+          }
         });
 
-        window.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                let dx = e.clientX - lastX;
-                let dy = e.clientY - lastY;
-                cam.x += dx;
-                cam.y += dy;
-                lastX = e.clientX;
-                lastY = e.clientY;
-            }
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
+        window.addEventListener("mouseup", () => {
+          isDragging = false;
         });
 
         // Mouse wheel zoom
-        window.addEventListener('wheel', (e) => {
-            const zoomFactor = 0.1;
-            if (e.deltaY < 0) {
-                cam.scale += zoomFactor; // Zoom in
-            } else {
-                cam.scale -= zoomFactor; // Zoom out
-            }
-            cam.scale = Math.max(0.1, Math.min(cam.scale, 5)); // Clamp zoom between 0.1x and 5x
+        window.addEventListener("wheel", (e) => {
+          const zoomFactor = 0.1;
+          if (e.deltaY < 0) {
+            cam.scale += zoomFactor; // Zoom in
+          } else {
+            cam.scale -= zoomFactor; // Zoom out
+          }
+          cam.scale = Math.max(0.1, Math.min(cam.scale, 5)); // Clamp zoom between 0.1x and 5x
         });
 
         // Create bodies
         for (let i = 0; i < 2000; i++) {
-            bodies.push(createBody(window.innerWidth / 2, window.innerHeight / 2, 0, 0));
+          bodies.push(
+            createBody(window.innerWidth / 2, window.innerHeight / 2, 0, 0),
+          );
         }
 
         setInterval(update, 1000 / 521);
-    };
-</script>
-
-</body>
+      };
+    </script>
+  </body>
 </html>
