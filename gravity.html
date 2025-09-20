@@ -9,7 +9,7 @@
       html {
         margin: 0;
         padding: 0;
-        overflow: hidden; /* Remove scrollbars */
+        overflow: hidden;
         height: 100%;
         width: 100%;
         background-color: #000;
@@ -35,8 +35,7 @@
       let friction = 0.97;
       let bodies = [];
 
-      // Camera variables
-      let cam = { x: 0, y: 0, scale: 1 }; // Added scale
+      let cam = { x: 0, y: 0, scale: 1 };
       let isDragging = false;
       let lastX = 0;
       let lastY = 0;
@@ -66,7 +65,6 @@
       }
 
       function update() {
-        // update all positions based on other bodies
         for (let i = 0; i < bodies.length; i++) {
           const body = bodies[i];
           const x = body.x || 0;
@@ -93,7 +91,6 @@
           body.vx = vx * friction;
           body.vy = vy * friction;
 
-          // Scale the body position based on the camera scale
           body.style.left = cam.x + body.x * cam.scale + "px";
           body.style.top = cam.y + body.y * cam.scale + "px";
           body.style.width = body.mass * 10 * cam.scale + "px";
@@ -101,7 +98,6 @@
         }
       }
 
-      // Add mouse event listeners for camera movement
       window.onload = function () {
         window.addEventListener("mousedown", (e) => {
           isDragging = true;
@@ -124,18 +120,16 @@
           isDragging = false;
         });
 
-        // Mouse wheel zoom
         window.addEventListener("wheel", (e) => {
           const zoomFactor = 0.1;
           if (e.deltaY < 0) {
-            cam.scale += zoomFactor; // Zoom in
+            cam.scale += zoomFactor;
           } else {
-            cam.scale -= zoomFactor; // Zoom out
+            cam.scale -= zoomFactor;
           }
-          cam.scale = Math.max(0.1, Math.min(cam.scale, 5)); // Clamp zoom between 0.1x and 5x
+          cam.scale = Math.max(0.1, Math.min(cam.scale, 5));
         });
 
-        // Create bodies
         for (let i = 0; i < 2000; i++) {
           bodies.push(
             createBody(window.innerWidth / 2, window.innerHeight / 2, 0, 0),
