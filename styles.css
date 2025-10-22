@@ -39,7 +39,7 @@ a:hover {
 .layout {
   display: flex;
   align-items: flex-start;
-  max-width: 1600px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 48px clamp(32px, 4vw, 80px);
   gap: 80px;
@@ -205,8 +205,8 @@ main.content {
 }
 
 .proj-icon {
-  width: 18px;
-  height: 18px;
+  width: 25px;
+  height: 25px;
   vertical-align: middle;
   position: relative;
   top: -1px;
@@ -317,7 +317,7 @@ a:active {
   box-sizing: border-box;
 }
 
-.project-cards-container:hover > .project-card::after {
+.project-cards-container:hover>.project-card::after {
   opacity: 1;
 }
 
@@ -357,20 +357,16 @@ a:active {
 }
 
 .project-card::before {
-  background: radial-gradient(
-    1500px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.1),
-    transparent 40%
-  );
+  background: radial-gradient(1500px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.1),
+      transparent 40%);
   z-index: 3;
 }
 
 .project-card::after {
-  background: radial-gradient(
-    1500px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.15),
-    transparent 40%
-  );
+  background: radial-gradient(1500px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.15),
+      transparent 40%);
   z-index: 1;
 }
 
@@ -378,7 +374,7 @@ a:active {
   opacity: 1;
 }
 
-.project-card > .card-content {
+.project-card>.card-content {
   background-color: transparent;
   border-radius: inherit;
   display: flex;
@@ -407,11 +403,9 @@ a:active {
 
 .project-card h3 {
   margin: 25px 0 15px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -429,11 +423,9 @@ a:active {
 }
 
 .project-card a {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.15),
-    rgba(122, 108, 168, 0.15)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.15),
+      rgba(122, 108, 168, 0.15));
   border: 1px solid var(--border-color);
   border-radius: 15px;
   display: block;
@@ -457,21 +449,17 @@ a:active {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   transition: all 0.6s ease;
 }
 
 .project-card a:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.25),
-    rgba(122, 108, 168, 0.25)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.25),
+      rgba(122, 108, 168, 0.25));
   box-shadow: 0 5px 15px var(--shadow-color);
   transform: translateY(-3px);
 }
@@ -525,20 +513,16 @@ a:active {
 }
 
 .about::before {
-  background: radial-gradient(
-    800px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.1),
-    transparent 40%
-  );
+  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.1),
+      transparent 40%);
   z-index: 3;
 }
 
 .about::after {
-  background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.15),
-    transparent 40%
-  );
+  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.15),
+      transparent 40%);
   z-index: 1;
 }
 
@@ -550,7 +534,7 @@ a:active {
   opacity: 1;
 }
 
-.about > .card-content {
+.about>.card-content {
   background-color: transparent;
   border-radius: inherit;
   display: flex;
@@ -563,11 +547,9 @@ a:active {
 }
 
 .about h2 {
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -596,11 +578,9 @@ h2::after {
   height: 3px;
   bottom: -10px;
   left: 25%;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   border-radius: 3px;
 }
 
@@ -629,19 +609,17 @@ h2::after {
   box-sizing: border-box;
 }
 
-.content > h1,
-.content > h2,
-.projects > h2 {
+.content>h1,
+.content>h2,
+.projects>h2 {
   width: 100%;
   text-align: center;
   margin-top: 70px;
   margin-bottom: 40px;
   font-size: 2.2rem;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -734,7 +712,7 @@ h2::after {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-.profile-card > .card-content {
+.profile-card>.card-content {
   background-color: transparent;
   border-radius: inherit;
   display: flex;
@@ -769,12 +747,12 @@ h2::after {
   opacity: 0 !important;
 }
 
-.project-card > .card-content > * {
+.project-card>.card-content>* {
   position: relative;
   z-index: 3;
 }
 
-.about > .card-content > * {
+.about>.card-content>* {
   position: relative;
   z-index: 3;
 }
@@ -803,6 +781,7 @@ h2::after {
 }
 
 @keyframes blink {
+
   0%,
   100% {
     opacity: 1;
@@ -834,11 +813,9 @@ h2::after {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 5px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -887,11 +864,9 @@ h2::after {
 
 .skill-progress {
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   border-radius: 5px;
   width: 0;
 }
@@ -917,11 +892,9 @@ h2::after {
 
 .filter-btn:hover,
 .filter-btn.active {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.2),
-    rgba(122, 108, 168, 0.2)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.2),
+      rgba(122, 108, 168, 0.2));
   color: var(--text-primary);
   border-color: var(--accent-primary);
   transform: translateY(-3px);
@@ -1004,11 +977,9 @@ h2::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   transition: all 0.3s ease;
 }
 
@@ -1021,11 +992,9 @@ h2::after {
   padding: 15px;
   border: none;
   border-radius: 30px;
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.8),
-    rgba(122, 108, 168, 0.8)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.8),
+      rgba(122, 108, 168, 0.8));
   color: white;
   font-size: 16px;
   font-weight: 500;
@@ -1050,11 +1019,9 @@ h2::after {
 }
 
 .submit-btn.sending {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.5),
-    rgba(122, 108, 168, 0.5)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.5),
+      rgba(122, 108, 168, 0.5));
 }
 
 .submit-btn.sending .send-icon {
@@ -1062,11 +1029,9 @@ h2::after {
 }
 
 .submit-btn.sent {
-  background: linear-gradient(
-    90deg,
-    rgba(100, 200, 100, 0.8),
-    rgba(80, 180, 80, 0.8)
-  );
+  background: linear-gradient(90deg,
+      rgba(100, 200, 100, 0.8),
+      rgba(80, 180, 80, 0.8));
 }
 
 @keyframes sendIcon {
@@ -1107,11 +1072,9 @@ h2::after {
 .github-badge {
   margin-top: 20px;
   padding: 10px 15px;
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.15),
-    rgba(122, 108, 168, 0.15)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.15),
+      rgba(122, 108, 168, 0.15));
   border-radius: 15px;
   display: inline-flex;
   align-items: center;
@@ -1198,20 +1161,16 @@ h2::after {
 }
 
 .side-project-card::before {
-  background: radial-gradient(
-    1200px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.1),
-    transparent 40%
-  );
+  background: radial-gradient(1200px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.1),
+      transparent 40%);
   z-index: 3;
 }
 
 .side-project-card::after {
-  background: radial-gradient(
-    1200px circle at var(--mouse-x) var(--mouse-y),
-    rgba(var(--accent-primary-rgb), 0.15),
-    transparent 40%
-  );
+  background: radial-gradient(1200px circle at var(--mouse-x) var(--mouse-y),
+      rgba(var(--accent-primary-rgb), 0.15),
+      transparent 40%);
   z-index: 1;
 }
 
@@ -1219,11 +1178,11 @@ h2::after {
   opacity: 1;
 }
 
-.side-projects-container:hover > .side-project-card::after {
+.side-projects-container:hover>.side-project-card::after {
   opacity: 1;
 }
 
-.side-project-card > .card-content {
+.side-project-card>.card-content {
   background-color: transparent;
   border-radius: inherit;
   display: flex;
@@ -1237,11 +1196,9 @@ h2::after {
 
 .side-project-card h3 {
   margin: 0 0 15px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-primary),
+      var(--accent-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1259,11 +1216,9 @@ h2::after {
 }
 
 .side-project-card a {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.15),
-    rgba(122, 108, 168, 0.15)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.15),
+      rgba(122, 108, 168, 0.15));
   border: 1px solid var(--border-color);
   border-radius: 15px;
   display: block;
@@ -1287,21 +1242,17 @@ h2::after {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   transition: all 0.6s ease;
 }
 
 .side-project-card a:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(157, 129, 199, 0.25),
-    rgba(122, 108, 168, 0.25)
-  );
+  background: linear-gradient(90deg,
+      rgba(157, 129, 199, 0.25),
+      rgba(122, 108, 168, 0.25));
   box-shadow: 0 5px 15px var(--shadow-color);
   transform: translateY(-3px);
 }
@@ -1406,4 +1357,202 @@ body:hover::-webkit-scrollbar-thumb {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.readme-preview {
+  width: 450px;
+  max-width: 100%;
+  max-height: calc(100vh - 96px);
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-self: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.readme-preview.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.readme-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  align-self: flex-end;
+}
+
+.readme-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.readme-title {
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.readme-content {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.readme-content h1,
+.readme-content h2,
+.readme-content h3,
+.readme-content h4 {
+  color: #fff;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.readme-content h1 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.readme-content h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 2em;
+}
+
+.readme-content h3 {
+  font-size: 1rem;
+}
+
+.readme-content h4 {
+  font-size: 0.9rem;
+}
+
+.readme-content p {
+  margin: 0 0 0.8rem 0;
+  max-width: 45ch;
+  opacity: 0.8;
+}
+
+.readme-content code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+  color: #e0e0e0;
+}
+
+.readme-content pre {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid #2a262e;
+}
+
+.readme-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85em;
+}
+
+.readme-content ul,
+.readme-content ol {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.readme-content li {
+  max-width: 68ch;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.readme-content a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #ffffff33;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.readme-content a:hover {
+  border-color: #fff;
+}
+
+.readme-content blockquote {
+  border-left: 3px solid #9d81c7;
+  padding-left: 1em;
+  margin-left: 0;
+  color: #aaa;
+  font-style: italic;
+}
+
+.readme-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1em 0;
+}
+
+.readme-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.readme-content table th,
+.readme-content table td {
+  padding: 0.5em;
+  border: 1px solid #2a262e;
+}
+
+.readme-content table th {
+  background: rgba(157, 129, 199, 0.1);
+  font-weight: 600;
+}
+
+.readme-loading {
+  text-align: left;
+  color: #888;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+@media (max-width: 1400px) {
+  .layout {
+    gap: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .readme-preview {
+    width: 100%;
+  }
 }

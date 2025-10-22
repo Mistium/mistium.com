@@ -1,240 +1,285 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Mistium</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="Sole developer of originOS" />
-    <meta content="Mistium" property="og:title" />
-    <meta content="Sole developer of originOS" property="og:description" />
-    <meta content="https://mistium.com" property="og:url" />
-    <meta
-      content="https://avatars.githubusercontent.com/u/92952823?v=4"
-      property="og:image"
-    />
-    <link rel="icon" href="https://avatars.rotur.dev/mist" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="layout">
-      <aside class="sidebar">
-        <nav aria-label="social links">
-          <ul class="social-icons">
-            <li>
-              <a
-                data-tip="GitHub"
-                href="https://github.com/mistium"
-                aria-label="GitHub"
-                ><img src="./_site/assets/github.svg" alt="GitHub"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Patreon"
-                href="https://patreon.com/mistium"
-                aria-label="Patreon"
-                ><img src="./_site/assets/patreon.svg" alt="Patreon"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Discord"
-                href="https://discord.com/users/603952506330021898"
-                aria-label="Discord"
-                ><img src="./_site/assets/discord.svg" alt="Discord"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Scratch"
-                href="https://scratch.mit.edu/users/m1stium"
-                aria-label="Scratch"
-                ><img src="./_site/assets/scratch.svg" alt="Scratch"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="YouTube"
-                href="https://www.youtube.com/@mistium"
-                aria-label="YouTube"
-                ><img src="./_site/assets/youtube.svg" alt="YouTube"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Itch.io"
-                href="https://mistium.itch.io"
-                aria-label="Itch.io"
-                ><img src="./_site/assets/itchdotio.svg" alt="Itch.io"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Instagram"
-                href="https://www.instagram.com/m1stium"
-                aria-label="Instagram"
-                ><img src="./_site/assets/instagram.svg" alt="Instagram"
-              /></a>
-            </li>
-            <li>
-              <a
-                data-tip="Twitch"
-                href="https://www.twitch.tv/m1stium"
-                aria-label="Twitch"
-                ><img src="./_site/assets/twitch.svg" alt="Twitch"
-              /></a>
-            </li>
-          </ul>
-        </nav>
-        <section class="profile" id="about">
-          <img
-            class="avatar"
-            src="https://avatars.githubusercontent.com/u/92952823?v=4"
-            alt="Mist profile picture"
-          />
-          <h1>Mist</h1>
-          <h2 class="tagline">Building originOS & the Rotur ecosystem</h2>
-          <p class="intro">
-            I build tools & experiments: originOS (browser desktop), Rotur
-            (networking & auth layer), and a collection of small focused
-            languages & utilities. I like software that feels light, legible and
-            hackable.
-          </p>
-          <p class="links-inline">
-            <a href="https://github.com/Mistium">@Mistium</a>
-          </p>
-        </section>
-      </aside>
 
-      <main class="content" id="main">
-        <section id="projects" class="section">
-          <h3>Projects</h3>
-          <ul>
-            <li>
-              <img
-                class="proj-icon"
-                src="images/originOS_logo.png"
-                alt="originOS logo"
-              />
-              <strong>originOS</strong> – full desktop simulation in the
-              browser. <a href="https://origin.mistium.com">Use</a>
-            </li>
-            <li>
-              <img
-                class="proj-icon"
-                src="images/Rotur_Logo.png"
-                alt="Rotur logo"
-              />
-              <strong>Rotur</strong> – networking + accounts layer for TurboWarp
-              OSes. <a href="https://rotur.dev">About</a>
-            </li>
-            <li>
-              <img class="proj-icon" src="images/Rush.png" alt="RSH logo" />
-              <strong>RSH</strong> – simple flexible terminal spec.
-              <a href="https://github.com/RoturTW/.rsh">GitHub</a>
-            </li>
-            <li>
-              <img class="proj-icon" src="images/Claw.png" alt="Claw logo" />
-              <strong>Claw</strong> – open social platform without an algorithm.
-              <a href="https://github.com/RoturTW/claw">GitHub</a>
-            </li>
-            <li>
-              <img
-                class="proj-icon"
-                src="images/Extensions_logo.png"
-                alt="Extensions logo"
-              />
-              <strong>Extensions</strong> – scratch / originOS helper
-              extensions. <a href="https://extensions.mistium.com">Browse</a>
-            </li>
-            <li>
-              <img
-                class="proj-icon"
-                src="https://avatars.githubusercontent.com/u/175630084"
-                alt="MistWarp logo"
-              />
-              <strong>MistWarp</strong> – themed TurboWarp mod.
-              <a href="https://warp.mistium.com">Try</a>
-            </li>
-          </ul>
-        </section>
+<head>
+  <meta charset="UTF-8" />
+  <title>Mistium</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Sole developer of originOS" />
+  <meta content="Mistium" property="og:title" />
+  <meta content="Sole developer of originOS" property="og:description" />
+  <meta content="https://mistium.com" property="og:url" />
+  <meta content="https://avatars.githubusercontent.com/u/92952823?v=4" property="og:image" />
+  <link rel="icon" href="https://avatars.rotur.dev/mist" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <section id="side-projects" class="section">
-          <h3>Side Projects</h3>
-          <ul>
-            <li>
-              <strong>originChats</strong> – decentralized chat application.
-              <a href="https://github.com/Mistium/originChats">GitHub</a>
-            </li>
-            <li>
-              <strong>raingoer</strong> – a programming language written in Go.
-              <a href="https://github.com/Mistium/raingoer">GitHub</a>
-            </li>
-            <li>
-              <strong>opal</strong> – a package manager for OSL
-              <a href="https://github.com/Mistium/opal">GitHub</a>
-            </li>
-            <li>
-              <strong>ICN</strong> – vector icon rendering language.
-              <a href="https://icn.rotur.dev">Docs</a>
-            </li>
-            <li>
-              <strong>RDF</strong> – typed data storage format.
-              <a href="https://github.com/RoturTW/.rdf">GitHub</a>
-            </li>
-            <li>
-              <strong>RTR</strong> – browser language for Rotur apps.
-              <a href="https://github.com/RoturTW/.rtr">GitHub</a>
-            </li>
-            <li>
-              <strong>roturLink</strong> – local system bridge + CORS proxy.
-              <a href="https://github.com/RoturTW/roturLink">GitHub</a>
-            </li>
-            <li>
-              <strong>mistysIDBwrapper</strong> – friendly IndexedDB wrapper.
-              <a href="https://github.com/Mistium/mistysIDBwrapper">GitHub</a>
-            </li>
-            <li>
-              <strong>mist.js</strong> – tiny collection of JS utilities.
-              <a href="https://github.com/Mistium/mist.js">GitHub</a>
-            </li>
-          </ul>
-        </section>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+  <div class="layout">
+    <aside class="sidebar">
+      <nav aria-label="social links">
+        <ul class="social-icons">
+          <li>
+            <a data-tip="GitHub" href="https://github.com/mistium" aria-label="GitHub"><img
+                src="./_site/assets/github.svg" alt="GitHub" /></a>
+          </li>
+          <li>
+            <a data-tip="Patreon" href="https://patreon.com/mistium" aria-label="Patreon"><img
+                src="./_site/assets/patreon.svg" alt="Patreon" /></a>
+          </li>
+          <li>
+            <a data-tip="Discord" href="https://discord.com/users/603952506330021898" aria-label="Discord"><img
+                src="./_site/assets/discord.svg" alt="Discord" /></a>
+          </li>
+          <li>
+            <a data-tip="Scratch" href="https://scratch.mit.edu/users/m1stium" aria-label="Scratch"><img
+                src="./_site/assets/scratch.svg" alt="Scratch" /></a>
+          </li>
+          <li>
+            <a data-tip="YouTube" href="https://www.youtube.com/@mistium" aria-label="YouTube"><img
+                src="./_site/assets/youtube.svg" alt="YouTube" /></a>
+          </li>
+          <li>
+            <a data-tip="Itch.io" href="https://mistium.itch.io" aria-label="Itch.io"><img
+                src="./_site/assets/itchdotio.svg" alt="Itch.io" /></a>
+          </li>
+          <li>
+            <a data-tip="Instagram" href="https://www.instagram.com/m1stium" aria-label="Instagram"><img
+                src="./_site/assets/instagram.svg" alt="Instagram" /></a>
+          </li>
+          <li>
+            <a data-tip="Twitch" href="https://www.twitch.tv/m1stium" aria-label="Twitch"><img
+                src="./_site/assets/twitch.svg" alt="Twitch" /></a>
+          </li>
+        </ul>
+      </nav>
+      <section class="profile" id="about">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/92952823?v=4" alt="Mist profile picture" />
+        <h1>Mist</h1>
+        <h2 class="tagline">Building originOS & the Rotur ecosystem</h2>
+        <p class="intro">
+          I build tools & experiments: originOS (browser desktop), Rotur
+          (networking & auth layer), and a collection of small focused
+          languages & utilities. I like software that feels light, legible and
+          hackable.
+        </p>
+        <p class="intro">
+          Im good at scripting language design, writing fast code, and making servers.
+        </p>
+        <p class="links-inline">
+          <a href="https://github.com/Mistium">@Mistium</a>
+        </p>
+      </section>
+    </aside>
 
-        <section id="languages" class="section">
-          <h3>Languages</h3>
-          <p><strong>I work in:</strong> JavaScript, Go, Python, HTML, CSS.</p>
-          <p>
-            <strong>Next Up:</strong> WebAssembly (WASM), Rust, AssemblyScript,
-            WebGL.
-          </p>
-          <p><strong>I've written:</strong></p>
-          <ul>
-            <li>
-              <strong>OSL</strong> – dynamic runtime procedural rendering &
-              general purpose scripting language with optional weak static type
-              enforcement.
-              <a href="https://github.com/Mistium/Origin-OS">GitHub</a>
-            </li>
-            <li>
-              <strong>RTR</strong> – portable & customisable language that can
-              be modified and extended for whatever environment it's running in.
-              <a href="https://github.com/RoturTW/.rtr">GitHub</a>
-            </li>
-            <li>
-              <strong>raingoer</strong> – simplistic interpreted language that
-              runs on Go and can be compiled as an executable for any platform.
-              <a href="https://github.com/Mistium/raingoer">GitHub</a>
-            </li>
-          </ul>
-        </section>
-      </main>
-    </div>
-    <script src="particles.js" defer></script>
-  </body>
+    <main class="content" id="main">
+      <section id="projects" class="section">
+        <h3>My Focus</h3>
+        <ul>
+          <li>
+            <img class="proj-icon" src="images/originOS_logo.png" alt="originOS logo" />
+            <strong>originOS</strong> – full desktop simulation in the browser.
+            <a href="https://origin.mistium.com">Use</a>
+            <a href="https://github.com/Mistium/Origin-OS" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <img class="proj-icon" src="https://avatars.githubusercontent.com/u/175630084" alt="MistWarp logo" />
+            <strong>MistWarp</strong> – themed TurboWarp mod.
+            <a href="https://warp.mistium.com">Use</a>
+            <a href="https://github.com/MistWarp" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <img class="proj-icon" src="images/Extensions_logo.png" alt="Extensions logo" />
+            <strong>Extensions</strong> – scratch / originOS helper
+            extensions. <a href="https://extensions.mistium.com">Browse</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="Cool stuff im involved in" class="section">
+        <h3>Cool stuff I'm involved in</h3>
+        <ul>
+          <li>
+            <img class="proj-icon" src="https://avatars.githubusercontent.com/u/174211781?s=200&v=4" alt="Rotur logo" />
+            <strong>Rotur</strong> - Extensive toolkit for Web-based OSs.
+            <a href="https://rotur.dev">About</a>
+            <a href="https://github.com/RoturTW" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <img class="proj-icon" src="https://avatars.githubusercontent.com/u/230058906?s=200&v=4"
+              alt="Warpdrive logo" />
+            <strong>Warpdrive</strong> - Indie console made for TurboWarp
+            <a href="https://warpdrive.team">About</a>
+            <a href="https://github.com/warpdrive-console" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <img class="proj-icon" src="https://avatars.githubusercontent.com/u/236466286?s=200&v=4"
+              alt="Cloudlink delta logo" />
+            <strong>Cloudlink</strong> - Real-time P2P connectivity suite for Scratch 3 projects.
+            <a href="https://github.com/cloudlink-delta" class="github-link">GitHub</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="languages" class="section">
+        <h3>Languages</h3>
+        <p><strong>I work in:</strong> JavaScript, OSL, Go, Python</p>
+        <p><strong>Ive used:</strong> HTML, CSS, Rust, Python, AssemblyScript</p>
+        <p><strong>I've created:</strong></p>
+        <ul>
+          <li>
+            <strong>OSL</strong> – dynamic runtime procedural rendering &
+            general purpose scripting language with optional weak static type
+            enforcement.
+            <a href="https://osl.mistium.com">Docs</a>
+          </li>
+          <li>
+            <strong>RTR</strong> – portable & customisable language that can
+            be modified and extended for whatever environment it's running in.
+            <a href="https://docs.rotur.dev/languages/rtr">Docs</a>
+          </li>
+          <li>
+            <strong>raingoer</strong> – simplistic interpreted language that
+            runs on Go.
+            <a href="https://github.com/Mistium/raingoer" class="github-link">GitHub</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="side-projects" class="section">
+        <h3>Fun stuff</h3>
+        <ul>
+          <li>
+            <strong>OSL.go</strong> - go implementation of the OSL language.
+            <a href="https://github.com/originOSL/OSL.go" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>Appsie</strong> - simple app store for rotur, written in OSL.go
+            <a href="https://github.com/roturTW/appsie" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>RSH</strong> – simple flexible terminal spec.
+            <a href="https://github.com/RoturTW/.rsh" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>Claw</strong> – social platform without an algorithm.
+            <a href="https://docs.rotur.dev/claw">Docs</a>
+          </li>
+          <li>
+            <strong>originChats</strong> – decentralized chat application.
+            <a href="https://github.com/Mistium/originChats" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>opal</strong> – a package manager for OSL
+            <a href="https://github.com/originOSL/opal" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>ICN</strong> – vector icon rendering language.
+            <a href="https://icn.rotur.dev">Docs</a>
+          </li>
+          <li>
+            <strong>RDF</strong> – typed data storage format.
+            <a href="https://github.com/RoturTW/.rdf" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>roturLink</strong> – local system bridge + CORS proxy.
+            <a href="https://github.com/RoturTW/roturLink" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>mistysIDBwrapper</strong> – friendly IndexedDB wrapper.
+            <a href="https://github.com/Mistium/mistysIDBwrapper" class="github-link">GitHub</a>
+          </li>
+          <li>
+            <strong>mist.js</strong> – tiny collection of JS utilities.
+            <a href="https://github.com/Mistium/mist.js" class="github-link">GitHub</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <aside class="readme-preview" id="readmePreview">
+      <section>
+        <h1 class="readme-title" id="readmeTitle">README</h1>
+      </section>
+      <div class="readme-content" id="readmeContent">
+        <p class="readme-loading">Hover over a GitHub link to view README</p>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const preview = document.getElementById('readmePreview');
+    const titleEl = document.getElementById('readmeTitle');
+    const contentEl = document.getElementById('readmeContent');
+    const cache = {};
+
+    function extractGitHubInfo(url) {
+      if (!url.startsWith('https://github.com/')) return null;
+      const match = url.match(/github\.com\/([^\/]+)(?:\/([^\/]+))?/);
+      if (!match) return null;
+
+      const owner = match[1];
+      const repo = match[2] || null;
+      return { owner, repo };
+    }
+
+    async function fetchReadme(owner, repo) {
+      const cacheKey = `${owner}/${repo || '.github'}`;
+      if (cache[cacheKey]) return cache[cacheKey];
+
+      const readmeUrl = repo
+        ? `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/main/README.md`
+        : `https://raw.githubusercontent.com/${owner}/.github/refs/heads/main/profile/README.md`;
+
+      try {
+        const res = await fetch(readmeUrl);
+        if (!res.ok) throw new Error('README not found');
+
+        const markdown = await res.text();
+        const html = marked.parse(markdown);
+        cache[cacheKey] = html;
+        return html;
+      } catch (err) {
+        const errorHtml = `<p style="color: #ff6b6b;">Could not load README for ${owner}/${repo || '.github'}</p>`;
+        cache[cacheKey] = errorHtml;
+        return errorHtml;
+      }
+    }
+
+    function showReadme(owner, repo) {
+      titleEl.textContent = `${repo || owner}`;
+      contentEl.innerHTML = '<p class="readme-loading">Loading README...</p>';
+      preview.classList.add('visible');
+
+      fetchReadme(owner, repo).then(html => {
+        contentEl.innerHTML = html;
+      });
+    }
+
+    function hideReadme() {
+      preview.classList.remove('visible');
+    }
+
+    document.querySelectorAll('a.github-link').forEach(link => {
+      link.addEventListener('mouseenter', (e) => {
+        const url = e.target.href;
+        const info = extractGitHubInfo(url);
+
+        if (info) {
+          showReadme(info.owner, info.repo);
+        }
+      });
+    });
+
+    preview.addEventListener('mouseenter', () => {
+      preview.classList.add('visible');
+    });
+  </script>
+  <script src="particles.js" defer></script>
+</body>
+
 </html>
