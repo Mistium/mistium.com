@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Scratch Mods - Gravity Simulation | Mistium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="High-performance interactive physics gravity simulation tracing 494 open-source Scratch modifications, compiler forks, and runtimes in real time." />
+  <meta content="Scratch Mods - Gravity Simulation | Mistium" property="og:title" />
+  <meta content="Interactive real-time physics gravity graph of Scratch mods: TurboWarp, PenguinMod, Snail-IDE, MistWarp, Bilup, SkullWarp, OpenBlock, and more." property="og:description" />
+  <meta content="https://mistium.com/mods" property="og:url" />
+  <meta content="https://avatars.rotur.dev/mist?radius=128" property="og:image" />
+  <link rel="icon" href="https://avatars.rotur.dev/mist?radius=128" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/mods/mods.css" />
+</head>
+
+<body>
+  <!-- Floating Gravity HUD -->
+  <header class="gravity-hud-header">
+    <div class="hud-group">
+      <div class="hud-pill">
+        <a href="/" class="back-link" aria-label="Return to Mistium Home">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>mistium.com</span>
+        </a>
+        <h1 class="hud-title">Gravity Tree</h1>
+      </div>
+    </div>
+
+    <div class="hud-group">
+      <div class="hud-pill">
+        <div class="hud-search-box">
+          <svg class="hud-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="gravity-search" class="hud-search-input" placeholder="Search mods & orgs..." autocomplete="off" />
+        </div>
+        <button id="zoom-in" class="hud-btn" title="Zoom In">+</button>
+        <button id="zoom-out" class="hud-btn" title="Zoom Out">−</button>
+        <button id="zoom-reset" class="hud-btn" title="Reset View">⟲</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen Physics Canvas -->
+  <canvas id="gravity-canvas"></canvas>
+
+  <!-- Slide-Out Inspector Drawer -->
+  <div id="inspector-backdrop" class="inspector-backdrop"></div>
+  <aside id="inspector-drawer" class="inspector-drawer" aria-label="Mod Inspector">
+    <div class="drawer-header">
+      <h3>Mod Commit Inspector</h3>
+      <button id="drawer-close" class="drawer-close-btn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-mod-hero">
+        <img id="drawer-avatar" class="drawer-avatar" src="" alt="Mod Logo" />
+        <div class="drawer-hero-text">
+          <h2 id="drawer-name">Mod Name</h2>
+          <div class="drawer-badges">
+            <span id="drawer-branch" class="drawer-badge">main</span>
+            <span id="drawer-commit" class="drawer-badge">#hash</span>
+            <span id="drawer-gen" class="drawer-badge">Gen 0</span>
+            <span id="drawer-followers" class="drawer-badge">👥 0 followers</span>
+            <span id="drawer-forks-count" class="drawer-badge">🔱 0 forks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-title">Author / Organization</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="drawer-org-name" style="font-size: 13px; font-weight: 500; color: #fff;">Org</span>
+          <a id="drawer-org-link" href="#" target="_blank" rel="noopener" class="hud-btn" style="font-size: 11px;">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-title">Description</span>
+        <p id="drawer-desc" style="font-size: 12.5px; color: var(--text-muted); line-height: 1.6; margin: 0;"></p>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-title">Gravitational Lineage</span>
+        <div id="drawer-lineage" class="lineage-trail"></div>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-title">Child Forks</span>
+        <div id="drawer-forks" class="forks-chips-list"></div>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <a id="drawer-launch-btn" class="drawer-primary-btn" href="#" target="_blank" rel="noopener">
+        <span>Launch Mod Editor</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <script src="/particles.js" defer></script>
+  <script type="module" src="/mods/mods.js"></script>
+</body>
+
+</html>
