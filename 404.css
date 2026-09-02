@@ -1,4 +1,4 @@
-/* 404 Page Styling - Flat & Simple */
+/* 404 Page - Simple & Flat */
 body.not-found-page {
   background: #0d0d0f;
   color: #f5f5f5;
@@ -7,326 +7,45 @@ body.not-found-page {
   padding: 0;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  overflow-x: hidden;
+  justify-content: center;
 }
 
 .nf-container {
-  max-width: 680px;
-  width: 90%;
-  margin: 40px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
   text-align: center;
-  gap: 24px;
-  z-index: 10;
-}
-
-.nf-glitch-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
 }
 
 .nf-code {
   font-family: "Syne", sans-serif;
-  font-size: clamp(3.5rem, 10vw, 5.5rem);
+  font-size: clamp(5rem, 15vw, 8rem);
   font-weight: 800;
   line-height: 1;
   color: #fff;
   margin: 0;
+  letter-spacing: -2px;
 }
 
-.nf-title {
-  font-family: "Syne", sans-serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-}
-
-.nf-subtitle {
-  color: rgba(245, 245, 245, 0.65);
-  font-size: 13px;
-  max-width: 52ch;
-  margin: 0;
-  line-height: 1.6;
-}
-
-/* Mod Roulette Card */
-.roulette-card-box {
-  width: 100%;
-  max-width: 520px;
-  background: #141218;
-  border: 1px solid #24212b;
-  border-radius: 6px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  text-align: left;
-}
-
-.roulette-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #24212b;
-  padding-bottom: 10px;
-}
-
-.roulette-tag {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: #c299cf;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.nf-mod-hero {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nf-mod-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 4px;
-  border: 1px solid #24212b;
-  object-fit: cover;
-  background: #0d0d0f;
-  flex-shrink: 0;
-}
-
-.nf-mod-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-  flex: 1;
-}
-
-.nf-mod-name {
-  font-family: "Syne", sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.nf-mod-tags {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-}
-
-.nf-mod-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 2px 6px;
-  border-radius: 3px;
-  background: #1c1924;
-  border: 1px solid #24212b;
-  color: rgba(245, 245, 245, 0.7);
-}
-
-.nf-mod-desc {
-  font-size: 12.5px;
-  color: rgba(245, 245, 245, 0.65);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.roulette-footer {
-  display: flex;
-  gap: 8px;
-  padding-top: 4px;
-  flex-wrap: wrap;
-}
-
-.nf-action-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.12s ease, border-color 0.12s ease;
-}
-
-.nf-action-btn.primary {
-  background: #c299cf;
-  color: #110f16;
-  border: 1px solid transparent;
-  font-weight: 600;
-}
-
-.nf-action-btn.primary:hover {
-  background: #d5b1e0;
-}
-
-.nf-action-btn.secondary {
-  background: #1c1924;
-  border: 1px solid #24212b;
-  color: #f5f5f5;
-}
-
-.nf-action-btn.secondary:hover {
-  background: #252230;
-  border-color: #3d3948;
-}
-
-.nf-action-btn.spinning svg {
-  animation: spin 0.5s ease;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Search Input on 404 */
-.nf-search-wrapper {
-  width: 100%;
-  max-width: 520px;
-  position: relative;
-}
-
-.nf-search-input {
-  width: 100%;
-  box-sizing: border-box;
-  background: #141218;
-  border: 1px solid #24212b;
-  border-radius: 4px;
-  padding: 10px 14px 10px 38px;
-  color: #fff;
-  font-family: inherit;
-  font-size: 12.5px;
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.nf-search-input:focus {
-  border-color: #c299cf;
-}
-
-.nf-search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  color: #635f6d;
-  pointer-events: none;
-}
-
-.nf-dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  background: #141218;
-  border: 1px solid #24212b;
-  border-radius: 4px;
-  max-height: 260px;
-  overflow-y: auto;
-  z-index: 50;
-  display: none;
-  flex-direction: column;
-}
-
-.nf-dropdown.open {
-  display: flex;
-}
-
-.nf-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  text-decoration: none;
-  color: #f5f5f5;
-  border-bottom: 1px solid #1c1924;
-  transition: background 0.1s ease;
-}
-
-.nf-dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.nf-dropdown-item:hover {
-  background: #1c1924;
-}
-
-.nf-dropdown-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 3px;
-  object-fit: cover;
-  background: #0d0d0f;
-}
-
-.nf-dropdown-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-  text-align: left;
-}
-
-.nf-dropdown-name {
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.nf-dropdown-meta {
-  font-size: 10.5px;
-  color: #a19da8;
-}
-
-/* Nav Shortcuts */
-.nf-nav-shortcuts {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.nf-nav-link {
+.nf-home-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: rgba(245, 245, 245, 0.65);
-  font-size: 12px;
+  gap: 8px;
+  color: #a19da8;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.12s ease;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid #24212b;
+  background: #141218;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
-.nf-nav-link:hover {
-  color: #c299cf;
+.nf-home-link:hover {
+  color: #fff;
+  border-color: #3d3948;
+  background: #1c1924;
 }

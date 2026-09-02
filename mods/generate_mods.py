@@ -122,8 +122,18 @@ if os.path.exists(FORKS_PATH):
                 clean = m_raw['link'].replace('https://github.com/', '').strip('/').lower()
                 repo_to_key[clean] = m_key
 
-        known_core_names = {m['name'].strip().lower() for m in mods_raw.values()}
-        known_core_names.update({k.strip().lower() for k in mods_raw.keys()})
+        # Build canonical slug dictionary
+        canonical_slugs = {}
+        for k, m in mods_raw.items():
+            slug = re.sub(r'[^a-z0-9]', '', m['name'].lower())
+            canonical_slugs[slug] = k
+            k_slug = re.sub(r'[^a-z0-9]', '', k.lower())
+            canonical_slugs[k_slug] = k
+            for suff in ['gui', 'mod', 'ide', 'editor', 'studio', 'githubio', 'app']:
+                if slug.endswith(suff) and len(slug) > len(suff) + 2:
+                    canonical_slugs[slug[:-len(suff)]] = k
+                if k_slug.endswith(suff) and len(k_slug) > len(suff) + 2:
+                    canonical_slugs[k_slug[:-len(suff)]] = k
 
         keywords = ['mod', 'ide', 'warp', 'block', 'code', 'robot', 'craft', 'bot', 'ai', 'studio', 'play', 'plus', 'maker', 'learn', 'paint', 'game', 'audio', 'lab', 'cloud', 'engine', 'box', 'compiler', 'stem', 'kit', 'physics', 'music', 'matrix', 'space', 'sandbox']
         generic_ignore = ['scratchfoundation_scratch-gui', 'scratchfoundation_scratch_gui', 'scratch-gui-temp', 'scratch-gui-test', 'scratch-gui-fork']
@@ -176,7 +186,16 @@ if os.path.exists(FORKS_PATH):
                 norm_name = disp_name.strip().lower()
                 norm_url = n['url'].lower().rstrip('/')
 
-                if norm_name in known_core_names and not has_kids:
+                clean_slug = re.sub(r'[^a-z0-9]', '', norm_name)
+                matched_canonical = canonical_slugs.get(clean_slug)
+                if not matched_canonical:
+                    for suff in ['gui', 'mod', 'ide', 'editor', 'studio', 'githubio', 'app']:
+                        if clean_slug.endswith(suff) and len(clean_slug) > len(suff) + 2:
+                            matched_canonical = canonical_slugs.get(clean_slug[:-len(suff)])
+                            if matched_canonical: break
+
+                if matched_canonical:
+                    repo_to_key[name.lower()] = matched_canonical
                     continue
 
                 if norm_name in seen_titles:
