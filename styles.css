@@ -14,7 +14,7 @@ body {
   margin: 0;
   font-family: "Poppins", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: radial-gradient(circle at 20% 20%, #161418, #0d0d0d 55%) fixed;
+  background: radial-gradient(circle at 20% 20%, #030104, #0a0a0a 55%) fixed;
   color: #f5f5f5;
   line-height: 1.6;
   font-size: 13.5px;
@@ -104,7 +104,6 @@ a {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.04);
   position: relative;
   transition: background 0.2s, border-color 0.2s, transform 0.15s;
@@ -112,7 +111,6 @@ a {
 
 .social-icons a:hover {
   background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
 }
 
@@ -136,32 +134,6 @@ a {
   filter: none;
 }
 
-.social-icons a::after {
-  content: attr(data-tip);
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 6px);
-  transform: translateX(-50%) translateY(4px);
-  background: #1e1b21;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s, transform 0.22s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px #2a262e;
-  letter-spacing: 0.3px;
-  font-family: 'DM Mono', monospace;
-}
-
-.social-icons a:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
 .profile {
   display: flex;
   flex-direction: column;
@@ -172,13 +144,8 @@ a {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.1);
   transition: border-color 0.3s;
   display: block;
-}
-
-.avatar:hover {
-  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .profile h1 {
@@ -205,19 +172,6 @@ a {
   font-size: 12.5px;
   line-height: 1.65;
   padding-top: 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.links-inline a {
-  font-size: 12px;
-  color: rgba(245, 245, 245, 0.45);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.links-inline a:hover {
-  color: rgba(245, 245, 245, 0.85);
-  border-color: rgba(255, 255, 255, 0.4);
 }
 
 main.content {
@@ -229,12 +183,7 @@ main.content {
 
 .section {
   padding: 28px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   animation: fadeUp 0.4s ease both;
-}
-
-.section:last-child {
-  border-bottom: none;
 }
 
 @keyframes fadeUp {
@@ -277,13 +226,6 @@ main.content {
   margin: 0 0 20px;
 }
 
-.section > h3::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(194, 153, 207, 0.28), transparent);
-}
-
 .section ul {
   list-style: none;
   padding: 0;
@@ -299,24 +241,19 @@ main.content {
   flex-wrap: wrap;
   gap: 6px;
   padding: 9px 10px;
-  border-radius: 8px;
-  border: 1px solid transparent;
   transition: background 0.15s, border-color 0.15s;
   line-height: 1.5;
 }
 
 .section li:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .proj-icon {
   width: 20px;
   height: 20px;
-  border-radius: 4px;
   object-fit: cover;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .project-glyph {
@@ -392,7 +329,6 @@ main.content {
   font-size: 11.5px;
   font-weight: 500;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   color: rgba(245, 245, 245, 0.55);
   transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -401,7 +337,6 @@ main.content {
 
 .section li a:hover {
   background: rgba(91, 141, 238, 0.12);
-  border-color: rgba(91, 141, 238, 0.5);
   color: #8baff5;
 }
 
@@ -412,7 +347,6 @@ main.content {
 
 .section li a.github-link:hover {
   background: rgba(74, 222, 128, 0.08);
-  border-color: rgba(74, 222, 128, 0.4);
   color: #6edb97;
 }
 
@@ -443,7 +377,6 @@ main.content {
   pointer-events: none;
   transition: opacity 0.3s ease;
   background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
@@ -456,7 +389,6 @@ main.content {
 
 .readme-header {
   padding: 16px 18px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -532,7 +464,6 @@ main.content {
   border-radius: 8px;
   overflow-x: auto;
   margin: 1em 0;
-  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .readme-content pre code {
@@ -558,7 +489,6 @@ main.content {
 
 .readme-content a {
   color: #8baff5;
-  border-bottom: 1px solid rgba(139, 175, 245, 0.25);
   transition: border-color 0.2s;
 }
 
@@ -567,7 +497,6 @@ main.content {
 }
 
 .readme-content blockquote {
-  border-left: 2px solid rgba(91, 141, 238, 0.5);
   padding-left: 1em;
   margin-left: 0;
   color: rgba(245, 245, 245, 0.45);
@@ -591,7 +520,6 @@ main.content {
 .readme-content th,
 .readme-content td {
   padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   text-align: left;
 }
 
@@ -675,8 +603,6 @@ main.content {
   align-items: center;
   gap: 8px;
   padding: 14px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
   background: rgba(255, 255, 255, 0.03);
   transition: background 0.15s, border-color 0.15s, transform 0.15s;
   cursor: default;
@@ -684,7 +610,6 @@ main.content {
 
 .use-item:hover {
   background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
@@ -729,13 +654,6 @@ main.content {
   color: rgba(245, 245, 245, 0.52);
   margin: 22px 0 11px;
   font-family: "Poppins", system-ui, sans-serif;
-}
-
-.uses-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.055);
 }
 
 #uses {
@@ -852,7 +770,6 @@ main.content {
 .about-values span {
   padding: 4px 7px;
   color: rgba(245, 245, 245, 0.52);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 5px;
   font-size: 10.5px;
 }
