@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const zoomInBtn = document.getElementById('zoom-in');
   const zoomOutBtn = document.getElementById('zoom-out');
   const zoomResetBtn = document.getElementById('zoom-reset');
+  const labelsBtn = document.getElementById('labels-toggle');
+  const leavesBtn = document.getElementById('leaves-toggle');
 
   // Inspector Elements
   const drawer = document.getElementById('inspector-drawer');
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawerOrgLink = document.getElementById('drawer-org-link');
   const drawerDesc = document.getElementById('drawer-desc');
   const drawerLineage = document.getElementById('drawer-lineage');
+  const drawerComponents = document.getElementById('drawer-components');
   const drawerForks = document.getElementById('drawer-forks');
   const drawerLaunchBtn = document.getElementById('drawer-launch-btn');
 
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.scale(dpr, dpr);
   }
   resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', () => { resizeCanvas(); dirty = true; });
 
   // ---------------------------------------------------------
   // 2. Preload Avatar Images
@@ -143,16 +146,23 @@ document.addEventListener('DOMContentLoaded', () => {
     nodeKeyMap.set(mod.key, node);
   });
 
-  // Build Spring Gravitational Links
-  // - 0-children moons are kept very close to their parent
-  // - Anything with >0 forks is pushed further out logarithmically by ln(1 + forks)
+  // Build Spring Gravitational Links (weighted by component overlap)
+  // A mod can draw from several ancestors at once: weight = how many
+  // components (gui/vm/render/blocks/paint/audio) came from that ancestor.
+  // Higher weight -> shorter, firmer, thicker link.
   modsData.forEach(mod => {
-    if (mod.parentKey && nodeKeyMap.has(mod.parentKey) && nodeKeyMap.has(mod.key)) {
-      const source = nodeKeyMap.get(mod.parentKey);
+    const specs = (mod.componentLinks && mod.componentLinks.length)
+      ? mod.componentLinks
+      : (mod.parentKey ? [{ parentKey: mod.parentKey, weight: 1 }] : []);
+
+    specs.forEach(spec => {
+      if (!nodeKeyMap.has(spec.parentKey) || !nodeKeyMap.has(mod.key)) return;
+      const source = nodeKeyMap.get(spec.parentKey);
       const target = nodeKeyMap.get(mod.key);
+      const weight = Math.max(1, spec.weight || 1);
       const k = target.directKidsCount;
       const sizeRatio = Math.min(source.r, target.r) / Math.max(source.r, target.r);
-      
+
       let length;
       if (k === 0) {
         // Kept tight and close to parent
@@ -165,10 +175,74 @@ document.addEventListener('DOMContentLoaded', () => {
           length += Math.pow(sizeRatio, 2.0) * 80.0;
         }
       }
+      // Stronger component overlap pulls the node in tighter
+      length = Math.max(source.r + target.r + 8, length - (weight - 1) * 24);
 
-      links.push({ source, target, length, color: target.color });
-    }
+      links.push({ source, target, length, color: target.color, weight });
+    });
   });
+
+  // Adjacency: node key -> links touching it (drives hover highlighting)
+  const linksByNode = new Map();
+  const addLink = (key, link) => {
+    let arr = linksByNode.get(key);
+    if (!arr) { arr = []; linksByNode.set(key, arr); }
+    arr.push(link);
+  };
+  links.forEach(link => {
+    addLink(link.source.key, link);
+    addLink(link.target.key, link);
+  });
+
+  let showLabels = false;   // labels hidden by default; toggle in HUD
+  let hideLeaves = false;   // hide no-fork, single-parent mods
+  let hiddenKeys = new Set();
+  let settled = false;      // physics at rest
+  let dirty = true;         // something changed -> redraw needed
+  let brightLinks = new Set();
+  let brightNodes = new Set();
+
+  function computeHidden() {
+    hiddenKeys = new Set();
+    if (!hideLeaves) return;
+    for (const node of nodes) {
+      const comps = node.mod.componentLinks;
+      const parents = (comps && comps.length)
+        ? comps.length
+        : (node.mod.parentKey ? 1 : 0);
+      // no forks and only one parent (or none)
+      if (node.directKidsCount === 0 && parents <= 1) {
+        hiddenKeys.add(node.key);
+      }
+    }
+  }
+
+  function refreshFocus() {
+    const focus = hoveredNode || selectedNode;
+    brightLinks = new Set();
+    brightNodes = new Set();
+    if (!focus) return;
+
+    brightNodes.add(focus.key);
+    const incident = linksByNode.get(focus.key);
+    if (incident) {
+      for (const link of incident) {
+        brightLinks.add(link);
+        brightNodes.add(link.source.key);
+        brightNodes.add(link.target.key);
+      }
+    }
+    if (selectedNode) {
+      activeLineageKeys.forEach(k => brightNodes.add(k));
+      for (const link of links) {
+        if (activeLineageKeys.has(link.source.key) && activeLineageKeys.has(link.target.key)) {
+          brightLinks.add(link);
+        }
+      }
+    }
+  }
+
+  computeHidden();
 
   // ---------------------------------------------------------
   // 4. Ultra-Fast Physics Engine
@@ -179,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function reheatSimulation(amount = 0.8) {
     alpha = Math.max(alpha, amount);
+    dirty = true;
   }
 
   function updatePhysics() {
@@ -202,7 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
       const displacement = dist - link.length;
 
-      const springK = (0.048 + Math.min(0.04, s.directKidsCount * 0.002)) * alpha;
+      const springK = (0.048 + Math.min(0.04, s.directKidsCount * 0.002)) * alpha
+        * (1 + ((link.weight || 1) - 1) * 0.5);
       const force = displacement * springK;
       const fx = (dx / dist) * force;
       const fy = (dy / dist) * force;
@@ -368,6 +444,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function render() {
+    // Skip physics + redraw entirely when the layout is at rest and
+    // nothing has changed (hover, zoom, pan, selection, drag).
+    if (alpha < alphaMin && !draggedNode && !dirty) {
+      requestAnimationFrame(render);
+      return;
+    }
+    dirty = false;
     updatePhysics();
 
     ctx.save();
@@ -379,23 +462,24 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.translate(cameraX, cameraY);
     ctx.scale(cameraScale, cameraScale);
 
-    const hasHighlight = activeLineageKeys.size > 0;
+    const hasFocus = brightLinks.size > 0 || brightNodes.size > 0;
 
     // 1. Draw Links (Fast Multi-Pass Glowing Lines with Zero Shadow Blur)
     links.forEach(link => {
       const s = link.source;
       const t = link.target;
-      const isHighlighted = hasHighlight && activeLineageKeys.has(s.key) && activeLineageKeys.has(t.key);
+      if (hiddenKeys.has(s.key) || hiddenKeys.has(t.key)) return;
+      const isBright = brightLinks.has(link);
 
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(s.x, s.y);
       ctx.lineTo(t.x, t.y);
 
-      if (isHighlighted) {
+      if (isBright) {
         // Fast Outer Glow Beam (Wide translucent line)
         ctx.strokeStyle = `${t.color}55`;
-        ctx.lineWidth = 7.0;
+        ctx.lineWidth = 6.0 + Math.min(4.0, ((link.weight || 1) - 1) * 1.2);
         ctx.stroke();
 
         // Crisp Inner Beam
@@ -405,15 +489,15 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2.5;
         ctx.stroke();
-      } else if (hasHighlight) {
+      } else if (hasFocus) {
         ctx.strokeStyle = '#1d1a24';
         ctx.lineWidth = 1.0;
         ctx.globalAlpha = 0.15;
         ctx.stroke();
       } else {
         ctx.strokeStyle = t.color;
-        ctx.lineWidth = 1.8;
-        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = 1.4 + Math.min(4.5, ((link.weight || 1) - 1) * 1.15);
+        ctx.globalAlpha = 0.45 + Math.min(0.4, ((link.weight || 1) - 1) * 0.1);
         ctx.stroke();
       }
 
@@ -421,14 +505,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const midX = (s.x + t.x) * 0.5;
       const midY = (s.y + t.y) * 0.5;
       const angle = Math.atan2(t.y - s.y, t.x - s.x);
-      const arrowSize = isHighlighted ? 6 : 4;
+      const arrowSize = isBright ? 6 : 4;
 
       ctx.beginPath();
       ctx.moveTo(midX + Math.cos(angle) * arrowSize, midY + Math.sin(angle) * arrowSize);
       ctx.lineTo(midX + Math.cos(angle + 2.4) * arrowSize, midY + Math.sin(angle + 2.4) * arrowSize);
       ctx.lineTo(midX + Math.cos(angle - 2.4) * arrowSize, midY + Math.sin(angle - 2.4) * arrowSize);
       ctx.closePath();
-      ctx.fillStyle = isHighlighted ? '#ffffff' : (hasHighlight ? '#1d1a24' : t.color);
+      ctx.fillStyle = isBright ? '#ffffff' : (hasFocus ? '#1d1a24' : t.color);
       ctx.fill();
 
       ctx.restore();
@@ -436,16 +520,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Draw Nodes (Instant GPU Ring Glows)
     nodes.forEach(node => {
+      if (hiddenKeys.has(node.key)) return;
       const isSelected = selectedNode === node;
       const isHovered = hoveredNode === node;
-      const isHighlighted = hasHighlight && activeLineageKeys.has(node.key);
-      const isDimmed = hasHighlight && !isHighlighted;
+      const isBright = brightNodes.has(node.key);
+      const isDimmed = hasFocus && !isBright;
 
       ctx.save();
-      ctx.globalAlpha = isDimmed ? 0.2 : 1.0;
+      ctx.globalAlpha = isDimmed ? 0.18 : 1.0;
 
       // Instant High-Speed Proportional Neon Glow Rings
-      if (isSelected || isHovered || isHighlighted) {
+      if (isSelected || isHovered || isBright) {
         const outerHalo = node.r + Math.max(4, node.r * 0.22);
         const innerHalo = node.r + Math.max(2, node.r * 0.1);
 
@@ -495,29 +580,41 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.strokeStyle = isSelected || isHovered ? '#ffffff' : node.color;
       ctx.stroke();
 
-      // Label Pill
-      const labelText = node.name + (node.mod.isMistium ? ' ★' : '');
-      const fontSize = node.r >= 35 ? '12px' : (node.r >= 18 ? '11px' : '10px');
-      ctx.font = `bold ${fontSize} Syne, sans-serif`;
-      const textWidth = ctx.measureText(labelText).width;
-      const pillW = Math.max(textWidth + 12, 46);
-      const pillH = node.r >= 18 ? 18 : 16;
-      const pillX = node.x - pillW / 2;
-      const pillY = node.y + node.r + 4;
+      // Label: hidden by default. Shown for the focused node, its
+      // neighbours, selected nodes, or everything when the toggle is on.
+      const showThisLabel =
+        isHovered || isSelected || isBright || (showLabels && !isDimmed);
 
-      ctx.fillStyle = 'rgba(10, 8, 14, 0.88)';
-      ctx.beginPath();
-      ctx.roundRect(pillX, pillY, pillW, pillH, 4);
-      ctx.fill();
-      ctx.strokeStyle = isHighlighted || isSelected ? node.color : 'rgba(255,255,255,0.1)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
+      if (showThisLabel) {
+        if (node._labelText === undefined) {
+          node._labelText = node.name + (node.mod.isMistium ? ' ★' : '');
+        }
+        if (node._labelW === undefined) {
+          const fontSize0 = node.r >= 35 ? '12px' : (node.r >= 18 ? '11px' : '10px');
+          ctx.font = `bold ${fontSize0} Syne, sans-serif`;
+          node._labelW = ctx.measureText(node._labelText).width;
+        }
+        const fontSize = node.r >= 35 ? '12px' : (node.r >= 18 ? '11px' : '10px');
+        ctx.font = `bold ${fontSize} Syne, sans-serif`;
+        const pillW = Math.max(node._labelW + 12, 46);
+        const pillH = node.r >= 18 ? 18 : 16;
+        const pillX = node.x - pillW / 2;
+        const pillY = node.y + node.r + 4;
 
-      // Label Text
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(labelText, node.x, pillY + pillH / 2);
+        ctx.fillStyle = 'rgba(10, 8, 14, 0.92)';
+        ctx.beginPath();
+        ctx.roundRect(pillX, pillY, pillW, pillH, 4);
+        ctx.fill();
+        ctx.strokeStyle = isBright || isSelected ? node.color : 'rgba(255,255,255,0.18)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Label Text
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(node._labelText, node.x, pillY + pillH / 2);
+      }
 
       ctx.restore();
     });
@@ -547,6 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function findNodeAt(wx, wy) {
     for (let i = nodes.length - 1; i >= 0; i--) {
       const n = nodes[i];
+      if (hiddenKeys.has(n.key)) continue;
       const dx = wx - n.x;
       const dy = wy - n.y;
       if (dx * dx + dy * dy <= (n.r + 8) * (n.r + 8)) {
@@ -595,6 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isPanning) {
       cameraX = e.clientX - startPanX;
       cameraY = e.clientY - startPanY;
+      dirty = true;
       return;
     }
 
@@ -606,6 +705,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!selectedNode) {
         updateActiveLineage(hoveredNode);
       }
+      refreshFocus();
+      dirty = true;
     }
   });
 
@@ -636,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cameraX = mouseX - (mouseX - cameraX) * (newScale / cameraScale);
     cameraY = mouseY - (mouseY - cameraY) * (newScale / cameraScale);
     cameraScale = newScale;
+    dirty = true;
   }, { passive: false });
 
   // ---------------------------------------------------------
@@ -644,6 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function selectNode(node) {
     selectedNode = node;
     updateActiveLineage(node);
+    refreshFocus();
     reheatSimulation(0.3);
     openInspector(node.mod);
   }
@@ -672,11 +775,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toolbar actions
   zoomInBtn?.addEventListener('click', () => {
     cameraScale = Math.min(2.5, cameraScale * 1.25);
+    dirty = true;
   });
   zoomOutBtn?.addEventListener('click', () => {
     cameraScale = Math.max(0.2, cameraScale * 0.8);
+    dirty = true;
   });
   zoomResetBtn?.addEventListener('click', fitOverview);
+
+  // Label toggle
+  labelsBtn?.addEventListener('click', () => {
+    showLabels = !showLabels;
+    labelsBtn.style.color = showLabels ? 'var(--accent, #c299cf)' : '';
+    labelsBtn.style.borderColor = showLabels ? 'var(--accent, #c299cf)' : '';
+    labelsBtn.title = showLabels ? 'Hide labels' : 'Show labels';
+    dirty = true;
+  });
+
+  // Hide leaf mods (no forks, single parent)
+  leavesBtn?.addEventListener('click', () => {
+    hideLeaves = !hideLeaves;
+    leavesBtn.style.color = hideLeaves ? 'var(--accent, #c299cf)' : '';
+    leavesBtn.style.borderColor = hideLeaves ? 'var(--accent, #c299cf)' : '';
+    leavesBtn.title = hideLeaves ? 'Show all mods' : 'Hide mods with no forks and only one parent';
+    computeHidden();
+    refreshFocus();
+    dirty = true;
+  });
 
   // Search input
   searchInput?.addEventListener('input', (e) => {
@@ -684,6 +809,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!q) {
       selectedNode = null;
       updateActiveLineage(null);
+      refreshFocus();
+      dirty = true;
       return;
     }
 
@@ -750,6 +877,33 @@ document.addEventListener('DOMContentLoaded', () => {
       drawerLineage.appendChild(chip);
     });
 
+    // Component lineage (gui / vm / render / blocks / paint / audio)
+    if (drawerComponents) {
+      drawerComponents.innerHTML = '';
+      const links = (mod.componentLinks || []).filter(c => c.components && c.components.length);
+      if (links.length === 0) {
+        drawerComponents.innerHTML = '<span style="font-size: 11.5px; color: var(--text-faint)">No component-level fork data.</span>';
+      } else {
+        links.forEach(cl => {
+          const row = document.createElement('div');
+          row.style.cssText = 'display:flex; align-items:center; gap:8px; margin-bottom:5px; font-size:11.5px;';
+
+          const chip = document.createElement('button');
+          chip.className = 'trail-item';
+          chip.textContent = cl.parentName;
+          chip.addEventListener('click', () => centerOnKey(cl.parentKey, 1.25));
+
+          const label = document.createElement('span');
+          label.style.color = 'var(--text-faint)';
+          label.textContent = `${cl.components.join(', ')}${cl.weight > 1 ? `  ×${cl.weight}` : ''}`;
+
+          row.appendChild(chip);
+          row.appendChild(label);
+          drawerComponents.appendChild(row);
+        });
+      }
+    }
+
     // Child Forks
     drawerForks.innerHTML = '';
     if (mod.childrenKeys && mod.childrenKeys.length > 0) {
@@ -780,6 +934,8 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('open');
     selectedNode = null;
     updateActiveLineage(null);
+    refreshFocus();
+    dirty = true;
   }
 
   drawerCloseBtn?.addEventListener('click', closeDrawer);

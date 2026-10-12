@@ -46,6 +46,8 @@
         <button id="zoom-in" class="hud-btn" title="Zoom In">+</button>
         <button id="zoom-out" class="hud-btn" title="Zoom Out">−</button>
         <button id="zoom-reset" class="hud-btn" title="Reset View">⟲</button>
+        <button id="labels-toggle" class="hud-btn" title="Show labels">Labels</button>
+        <button id="leaves-toggle" class="hud-btn" title="Hide mods with no forks and only one parent">Hide leaves</button>
       </div>
     </div>
   </header>
@@ -97,6 +99,11 @@
       <div class="drawer-section">
         <span class="drawer-section-title">Gravitational Lineage</span>
         <div id="drawer-lineage" class="lineage-trail"></div>
+      </div>
+
+      <div class="drawer-section" id="drawer-components-section">
+        <span class="drawer-section-title">Component Lineage</span>
+        <div id="drawer-components" class="lineage-trail"></div>
       </div>
 
       <div class="drawer-section">

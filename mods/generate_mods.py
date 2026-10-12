@@ -57,26 +57,51 @@ children_map.setdefault('Smalruby', []).append('SMTGUI')
 children_map.setdefault('NitroBolt', []).extend(['MistBolt', 'MagicMod'])
 
 # -------------------------------------------------------------------------
-# Ingest and enrich forks from /Users/sophie/motherforker/forks.json
+# Ingest and enrich forks from /Users/sophie/motherforker/graph.json
+# (full multi-family fork graph; gui component used for the mod tree).
+# Falls back to the legacy gui-only forks.json if graph.json is absent.
 # -------------------------------------------------------------------------
+GRAPH_FORKS_PATH = '/Users/sophie/motherforker/graph.json'
 FORKS_PATH = '/Users/sophie/motherforker/forks.json'
-if os.path.exists(FORKS_PATH):
+if os.path.exists(GRAPH_FORKS_PATH) or os.path.exists(FORKS_PATH):
     try:
-        with open(FORKS_PATH) as f:
-            forks_tree = json.load(f)
         all_fork_nodes = []
-        def walk_forks(node, parent_name=None):
-            all_fork_nodes.append({
-                'name': node.get('name', ''),
-                'url': node.get('url', ''),
-                'parent': parent_name,
-                'kids': len(node.get('children', [])),
-                'children': [c.get('name') for c in node.get('children', []) if isinstance(c, dict)]
-            })
-            for c in node.get('children', []):
-                if isinstance(c, dict):
-                    walk_forks(c, node.get('name', ''))
-        walk_forks(forks_tree)
+        if os.path.exists(GRAPH_FORKS_PATH):
+            with open(GRAPH_FORKS_PATH) as f:
+                graph_forks = json.load(f)
+            gui_repos = {
+                k: v for k, v in graph_forks.get('repos', {}).items()
+                if v.get('component') == 'gui'
+            }
+            kids_by_parent = {}
+            for k, v in gui_repos.items():
+                p = v.get('parent')
+                if p:
+                    kids_by_parent.setdefault(p, []).append(k)
+            for k, v in gui_repos.items():
+                all_fork_nodes.append({
+                    'name': k,
+                    'url': v.get('url', f"https://github.com/{k}"),
+                    'parent': v.get('parent'),
+                    'kids': len(kids_by_parent.get(k, [])),
+                    'children': kids_by_parent.get(k, []),
+                })
+            print(f"Derived {len(all_fork_nodes)} gui forks from graph.json")
+        else:
+            with open(FORKS_PATH) as f:
+                forks_tree = json.load(f)
+            def walk_forks(node, parent_name=None):
+                all_fork_nodes.append({
+                    'name': node.get('name', ''),
+                    'url': node.get('url', ''),
+                    'parent': parent_name,
+                    'kids': len(node.get('children', [])),
+                    'children': [c.get('name') for c in node.get('children', []) if isinstance(c, dict)]
+                })
+                for c in node.get('children', []):
+                    if isinstance(c, dict):
+                        walk_forks(c, node.get('name', ''))
+            walk_forks(forks_tree)
 
         repo_to_key = {
             'scratchfoundation/scratch-gui': 'Scratch',
@@ -222,7 +247,7 @@ if os.path.exists(FORKS_PATH):
                 }
                 children_map.setdefault(parent_key, []).append(var_key)
     except Exception as e:
-        print(f"Error loading forks.json: {e}")
+        print(f"Error loading fork graph: {e}")
 
 # Exclude Snap, Scratch 1.4, Scratch 2.0, ScratchX
 excluded = {'Snap', 'Scratch1dot4', 'Scratch2', 'ScratchX'}
@@ -1635,6 +1660,55 @@ if os.path.exists(cache_file):
     except Exception:
         followers_map = {}
 
+# -------------------------------------------------------------------------
+# Component fork graph from /Users/sophie/motherforker/graph.json
+# Records which mod each component (gui, vm, render, blocks, paint, audio)
+# was forked from, so link strength can reflect how much of a mod comes
+# from each ancestor (e.g. MistWarp: strong to TurboWarp, weak to PenguinMod).
+# -------------------------------------------------------------------------
+component_parents = {}   # var -> {component: parent_var}
+
+def _mod_ref(key):
+    """Return (id, name) for a mod key, tolerating unknown keys."""
+    if key in mod_metadata:
+        return mod_metadata[key]['id'], mod_metadata[key]['name']
+    if key in mods_raw:
+        return key.lower(), mods_raw[key].get('name', key)
+    return key.lower(), key
+
+GRAPH_PATH = '/Users/sophie/motherforker/graph.json'
+if os.path.exists(GRAPH_PATH):
+    try:
+        with open(GRAPH_PATH) as f:
+            graph_data = json.load(f)
+
+        owner_to_key = {}
+        for repo, key in globals().get('repo_to_key', {}).items():
+            owner_to_key.setdefault(repo.split('/')[0].lower(), key)
+        for v, meta in mod_metadata.items():
+            org = meta.get('githubOrg')
+            if org:
+                owner_to_key.setdefault(org.lower(), v)
+        for v, rw in mods_raw.items():
+            org = rw.get('owner')
+            if org:
+                owner_to_key.setdefault(org.lower(), v)
+
+        for full, info in graph_data.get('repos', {}).items():
+            owner = (info.get('owner') or full.split('/')[0]).lower()
+            comp = info.get('component')
+            parent = info.get('parent')
+            key = owner_to_key.get(owner)
+            if not key or key not in mods_raw or not comp or not parent:
+                continue
+            pkey = owner_to_key.get(parent.split('/')[0].lower())
+            if not pkey or pkey == key or pkey not in mods_raw:
+                continue
+            component_parents.setdefault(key, {})
+            component_parents[key].setdefault(comp, pkey)
+    except Exception as e:
+        print(f"Error loading graph.json: {e}")
+
 final_mods = []
 for var, raw in mods_raw.items():
     if var in mod_metadata:
@@ -1686,7 +1760,26 @@ for var, raw in mods_raw.items():
     
     org_key = meta.get('githubOrg', '').lower()
     followers_count = followers_map.get(org_key, 0)
-    
+
+    # Weighted component links: how many components came from each parent mod.
+    weight_map = {}
+    for comp, pkey in component_parents.get(var, {}).items():
+        weight_map.setdefault(pkey, []).append(comp)
+    if parent_var and parent_var not in weight_map:
+        weight_map[parent_var] = []  # primary fork; components unknown
+
+    component_links = []
+    for pkey, comps in weight_map.items():
+        pid, pname = _mod_ref(pkey)
+        component_links.append({
+            'parentKey': pkey,
+            'parentId': pid,
+            'parentName': pname,
+            'weight': len(comps),
+            'components': sorted(comps),
+        })
+    component_links.sort(key=lambda c: (-c['weight'], c['parentKey']))
+
     mod_item = {
         'key': var,
         'id': meta.get('id', var.lower()),
@@ -1715,7 +1808,9 @@ for var, raw in mods_raw.items():
         'tags': meta.get('tags', ['Mod', 'Scratch']),
         'author': meta.get('author', meta.get('githubOrg', 'Community')),
         'commitHash': meta.get('commitHash', 'f3a9b1c'),
-        'isMistium': var == 'Mistwarp'
+        'isMistium': var == 'Mistwarp',
+        'componentLinks': component_links,
+        'componentParents': component_parents.get(var, {})
     }
     final_mods.append(mod_item)
 
